@@ -1,0 +1,22 @@
+# Maven target directory
+/target/
+
+# IDE files
+*.iml
+.idea/
+*.ipr
+*.iws
+*.class
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# PlantUML generated images (optional)
+/docs/*.png
+
+# Environment files
+.env 
