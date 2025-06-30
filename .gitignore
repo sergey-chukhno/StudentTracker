@@ -19,4 +19,7 @@ Thumbs.db
 /docs/*.png
 
 # Environment files
-.env 
+.env
+
+# Database credentials
+StudentTracker/src/main/resources/db.properties 
