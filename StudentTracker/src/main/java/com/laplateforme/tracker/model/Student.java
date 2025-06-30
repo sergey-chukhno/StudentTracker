@@ -1,8 +1,5 @@
 package com.laplateforme.tracker.model;
 
-/**
- * Represents a student entity.
- */
 public class Student {
   private int id;
   private String firstName;
@@ -10,11 +7,9 @@ public class Student {
   private int age;
   private double grade;
 
-  // Default constructor
   public Student() {
   }
 
-  // Parameterized constructor
   public Student(int id, String firstName, String lastName, int age, double grade) {
     this.id = id;
     this.firstName = firstName;
@@ -23,15 +18,6 @@ public class Student {
     this.grade = grade;
   }
 
-  // Parameterized constructor without id (for inserts)
-  public Student(String firstName, String lastName, int age, double grade) {
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.age = age;
-    this.grade = grade;
-  }
-
-  // Getters and setters
   public int getId() {
     return id;
   }
@@ -70,16 +56,5 @@ public class Student {
 
   public void setGrade(double grade) {
     this.grade = grade;
-  }
-
-  @Override
-  public String toString() {
-    return "Student{" +
-        "id=" + id +
-        ", firstName='" + firstName + '\'' +
-        ", lastName='" + lastName + '\'' +
-        ", age=" + age +
-        ", grade=" + grade +
-        '}';
   }
 }

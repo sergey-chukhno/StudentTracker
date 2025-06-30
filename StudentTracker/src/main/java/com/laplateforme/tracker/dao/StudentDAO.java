@@ -1,6 +1,10 @@
 package com.laplateforme.tracker.dao;
 
 import com.laplateforme.tracker.model.Student;
+import com.laplateforme.tracker.util.DatabaseManager;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -15,8 +19,19 @@ public class StudentDAO {
    * @return true if successful, false otherwise
    */
   public boolean addStudent(Student student) {
-    // TODO: Implement insert logic
-    return false;
+    String sql = "INSERT INTO student (first_name, last_name, age, grade) VALUES (?, ?, ?, ?)";
+    try (Connection conn = DatabaseManager.getConnection();
+        PreparedStatement stmt = conn.prepareStatement(sql)) {
+      stmt.setString(1, student.getFirstName());
+      stmt.setString(2, student.getLastName());
+      stmt.setInt(3, student.getAge());
+      stmt.setDouble(4, student.getGrade());
+      int rows = stmt.executeUpdate();
+      return rows > 0;
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return false;
+    }
   }
 
   /**
