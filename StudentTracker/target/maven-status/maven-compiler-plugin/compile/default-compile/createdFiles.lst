@@ -1,8 +1,13 @@
 com/laplateforme/tracker/model/Student.class
-com/laplateforme/tracker/StudentTrackerCLI.class
-com/laplateforme/tracker/util/DatabaseManager.class
+com/laplateforme/tracker/handler/CreateStudentHandler.class
+com/laplateforme/tracker/handler/UpdateStudentHandler.class
 com/laplateforme/tracker/dao/StudentDAO.class
 com/laplateforme/tracker/util/DatabaseTest.class
-com/laplateforme/tracker/service/StudentService.class
+com/laplateforme/tracker/handler/DeleteStudentHandler.class
 com/laplateforme/tracker/handler/StudentsHandler.class
 com/laplateforme/tracker/StudentTrackerServer.class
+com/laplateforme/tracker/StudentTrackerCLI.class
+com/laplateforme/tracker/util/DatabaseManager.class
+com/laplateforme/tracker/handler/GetAllStudentsHandler.class
+com/laplateforme/tracker/service/StudentService.class
+com/laplateforme/tracker/handler/GetStudentByIdHandler.class
