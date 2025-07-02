@@ -73,6 +73,49 @@ public class StudentsHandler implements HttpHandler {
             os.write(responseBytes);
           }
         }
+      } else if ("POST".equalsIgnoreCase(method) && path.matches("^/students/?$")) {
+        // POST /students
+        StringBuilder sb = new StringBuilder();
+        try (java.io.BufferedReader reader = new java.io.BufferedReader(
+            new java.io.InputStreamReader(exchange.getRequestBody(), StandardCharsets.UTF_8))) {
+          String line;
+          while ((line = reader.readLine()) != null) {
+            sb.append(line);
+          }
+        }
+        String body = sb.toString();
+        Student student;
+        try {
+          student = gson.fromJson(body, Student.class);
+        } catch (Exception e) {
+          String response = "Invalid JSON";
+          byte[] responseBytes = response.getBytes(StandardCharsets.UTF_8);
+          exchange.sendResponseHeaders(400, responseBytes.length);
+          try (OutputStream os = exchange.getResponseBody()) {
+            os.write(responseBytes);
+          }
+          return;
+        }
+        // Basic validation
+        if (student == null || student.getFirstName() == null || student.getLastName() == null || student.getAge() <= 0
+            || student.getGrade() < 0) {
+          String response = "Missing or invalid student fields";
+          byte[] responseBytes = response.getBytes(StandardCharsets.UTF_8);
+          exchange.sendResponseHeaders(400, responseBytes.length);
+          try (OutputStream os = exchange.getResponseBody()) {
+            os.write(responseBytes);
+          }
+          return;
+        }
+        Student created = studentService.createStudent(student);
+        String json = gson.toJson(created);
+        byte[] responseBytes = json.getBytes(StandardCharsets.UTF_8);
+        exchange.getResponseHeaders().set("Content-Type", "application/json; charset=UTF-8");
+        exchange.sendResponseHeaders(201, responseBytes.length);
+        try (OutputStream os = exchange.getResponseBody()) {
+          os.write(responseBytes);
+        }
+        return;
       } else {
         String response = "Method Not Allowed";
         byte[] responseBytes = response.getBytes(StandardCharsets.UTF_8);

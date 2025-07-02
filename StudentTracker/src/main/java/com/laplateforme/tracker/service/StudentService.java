@@ -18,4 +18,10 @@ public class StudentService {
   public Student getStudentById(int id) {
     return studentDAO.getStudentByID(id);
   }
+
+  public Student createStudent(Student student) {
+    int newId = studentDAO.addStudent(student);
+    student.setId(newId);
+    return student;
+  }
 }
