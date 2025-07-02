@@ -9,15 +9,25 @@ public class DatabaseManager {
   private static final String PROPERTIES_FILE = "/db.properties";
 
   public static Connection getConnection() {
-    try (InputStream input = DatabaseManager.class.getResourceAsStream(PROPERTIES_FILE)) {
+    try {
+      System.out.println("[DEBUG] Attempting to load db.properties from classpath...");
+      InputStream input = DatabaseManager.class.getResourceAsStream("/db.properties");
+      if (input == null) {
+        System.out.println("[ERROR] db.properties not found on classpath!");
+        return null;
+      }
       Properties props = new Properties();
       props.load(input);
-      String url = props.getProperty("jdbc.url");
-      String username = props.getProperty("jdbc.username");
+      String jdbcUrl = props.getProperty("jdbc.url");
+      String user = props.getProperty("jdbc.user");
       String password = props.getProperty("jdbc.password");
-      return DriverManager.getConnection(url, username, password);
+      System.out.println("[DEBUG] Loaded JDBC URL: " + jdbcUrl);
+      System.out.println("[DEBUG] Loaded DB user: " + user);
+      return DriverManager.getConnection(jdbcUrl, user, password);
     } catch (Exception e) {
-      throw new RuntimeException("Failed to connect to the database", e);
+      System.out.println("[ERROR] Exception while connecting to DB: " + e.getMessage());
+      e.printStackTrace();
+      return null;
     }
   }
 }
