@@ -193,6 +193,45 @@ public class StudentsHandler implements HttpHandler {
           }
           return;
         }
+      } else if ("DELETE".equalsIgnoreCase(method)) {
+        // Use regex to match /students/{id}
+        String studentByIdPattern = "^/students/(\\d+)(/)?$";
+        java.util.regex.Pattern idPattern = java.util.regex.Pattern.compile(studentByIdPattern);
+        java.util.regex.Matcher matcher = idPattern.matcher(path);
+        if (matcher.matches()) {
+          int id;
+          try {
+            id = Integer.parseInt(matcher.group(1));
+          } catch (Exception e) {
+            String response = "Invalid student ID";
+            byte[] responseBytes = response.getBytes(StandardCharsets.UTF_8);
+            exchange.sendResponseHeaders(400, responseBytes.length);
+            try (OutputStream os = exchange.getResponseBody()) {
+              os.write(responseBytes);
+            }
+            return;
+          }
+          boolean deleted = studentService.deleteStudent(id);
+          if (!deleted) {
+            String response = "Student not found";
+            byte[] responseBytes = response.getBytes(StandardCharsets.UTF_8);
+            exchange.sendResponseHeaders(404, responseBytes.length);
+            try (OutputStream os = exchange.getResponseBody()) {
+              os.write(responseBytes);
+            }
+            return;
+          }
+          exchange.sendResponseHeaders(204, -1); // No Content
+          return;
+        } else {
+          String response = "Not Found";
+          byte[] responseBytes = response.getBytes(StandardCharsets.UTF_8);
+          exchange.sendResponseHeaders(404, responseBytes.length);
+          try (OutputStream os = exchange.getResponseBody()) {
+            os.write(responseBytes);
+          }
+          return;
+        }
       } else {
         String response = "Method Not Allowed";
         byte[] responseBytes = response.getBytes(StandardCharsets.UTF_8);

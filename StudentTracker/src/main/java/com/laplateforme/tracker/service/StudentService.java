@@ -30,4 +30,8 @@ public class StudentService {
     boolean updated = studentDAO.updateStudent(student);
     return updated ? student : null;
   }
+
+  public boolean deleteStudent(int id) {
+    return studentDAO.deleteStudent(id);
+  }
 }
