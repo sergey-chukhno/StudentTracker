@@ -116,6 +116,83 @@ public class StudentsHandler implements HttpHandler {
           os.write(responseBytes);
         }
         return;
+      } else if ("PUT".equalsIgnoreCase(method)) {
+        // Use regex to match /students/{id}
+        String studentByIdPattern = "^/students/(\\d+)(/)?$";
+        java.util.regex.Pattern idPattern = java.util.regex.Pattern.compile(studentByIdPattern);
+        java.util.regex.Matcher matcher = idPattern.matcher(path);
+        if (matcher.matches()) {
+          int id;
+          try {
+            id = Integer.parseInt(matcher.group(1));
+          } catch (Exception e) {
+            String response = "Invalid student ID";
+            byte[] responseBytes = response.getBytes(StandardCharsets.UTF_8);
+            exchange.sendResponseHeaders(400, responseBytes.length);
+            try (OutputStream os = exchange.getResponseBody()) {
+              os.write(responseBytes);
+            }
+            return;
+          }
+          StringBuilder sb = new StringBuilder();
+          try (java.io.BufferedReader reader = new java.io.BufferedReader(
+              new java.io.InputStreamReader(exchange.getRequestBody(), StandardCharsets.UTF_8))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+              sb.append(line);
+            }
+          }
+          String body = sb.toString();
+          Student student;
+          try {
+            student = gson.fromJson(body, Student.class);
+          } catch (Exception e) {
+            String response = "Invalid JSON";
+            byte[] responseBytes = response.getBytes(StandardCharsets.UTF_8);
+            exchange.sendResponseHeaders(400, responseBytes.length);
+            try (OutputStream os = exchange.getResponseBody()) {
+              os.write(responseBytes);
+            }
+            return;
+          }
+          // Basic validation
+          if (student == null || student.getFirstName() == null || student.getLastName() == null
+              || student.getAge() <= 0 || student.getGrade() < 0) {
+            String response = "Missing or invalid student fields";
+            byte[] responseBytes = response.getBytes(StandardCharsets.UTF_8);
+            exchange.sendResponseHeaders(400, responseBytes.length);
+            try (OutputStream os = exchange.getResponseBody()) {
+              os.write(responseBytes);
+            }
+            return;
+          }
+          Student updated = studentService.updateStudent(id, student);
+          if (updated == null) {
+            String response = "Student not found";
+            byte[] responseBytes = response.getBytes(StandardCharsets.UTF_8);
+            exchange.sendResponseHeaders(404, responseBytes.length);
+            try (OutputStream os = exchange.getResponseBody()) {
+              os.write(responseBytes);
+            }
+            return;
+          }
+          String json = gson.toJson(updated);
+          byte[] responseBytes = json.getBytes(StandardCharsets.UTF_8);
+          exchange.getResponseHeaders().set("Content-Type", "application/json; charset=UTF-8");
+          exchange.sendResponseHeaders(200, responseBytes.length);
+          try (OutputStream os = exchange.getResponseBody()) {
+            os.write(responseBytes);
+          }
+          return;
+        } else {
+          String response = "Not Found";
+          byte[] responseBytes = response.getBytes(StandardCharsets.UTF_8);
+          exchange.sendResponseHeaders(404, responseBytes.length);
+          try (OutputStream os = exchange.getResponseBody()) {
+            os.write(responseBytes);
+          }
+          return;
+        }
       } else {
         String response = "Method Not Allowed";
         byte[] responseBytes = response.getBytes(StandardCharsets.UTF_8);

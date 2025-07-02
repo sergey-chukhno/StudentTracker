@@ -24,4 +24,10 @@ public class StudentService {
     student.setId(newId);
     return student;
   }
+
+  public Student updateStudent(int id, Student student) {
+    student.setId(id);
+    boolean updated = studentDAO.updateStudent(student);
+    return updated ? student : null;
+  }
 }
