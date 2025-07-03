@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.laplateforme.tracker.service.UserServiceTest" time="1.108" tests="3" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.laplateforme.tracker.service.UserServiceTest" time="1.078" tests="3" errors="0" skipped="0" failures="0">
   <properties>
     <property name="surefire.printSummary" value="true"/>
     <property name="java.specification.version" value="17"/>
@@ -13,7 +13,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="GB"/>
     <property name="sun.boot.library.path" value="/opt/homebrew/Cellar/openjdk@17/17.0.15/libexec/openjdk.jdk/Contents/Home/lib"/>
-    <property name="sun.java.command" value="/Users/anatoliychubais/Desktop/Java/StudentTracker/StudentTracker/target/surefire/surefirebooter-20250703135801721_3.jar /Users/anatoliychubais/Desktop/Java/StudentTracker/StudentTracker/target/surefire 2025-07-03T13-58-01_641-jvmRun1 surefire-20250703135801721_1tmp surefire_0-20250703135801721_2tmp"/>
+    <property name="sun.java.command" value="/Users/anatoliychubais/Desktop/Java/StudentTracker/StudentTracker/target/surefire/surefirebooter-20250703145156717_3.jar /Users/anatoliychubais/Desktop/Java/StudentTracker/StudentTracker/target/surefire 2025-07-03T14-51-56_653-jvmRun1 surefire-20250703145156717_1tmp surefire_0-20250703145156717_2tmp"/>
     <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="/Users/anatoliychubais/Desktop/Java/StudentTracker/StudentTracker/target/test-classes:/Users/anatoliychubais/Desktop/Java/StudentTracker/StudentTracker/target/classes:/Users/anatoliychubais/.m2/repository/junit/junit/3.8.1/junit-3.8.1.jar:/Users/anatoliychubais/.m2/repository/org/postgresql/postgresql/42.7.3/postgresql-42.7.3.jar:/Users/anatoliychubais/.m2/repository/org/checkerframework/checker-qual/3.42.0/checker-qual-3.42.0.jar:/Users/anatoliychubais/.m2/repository/com/google/code/gson/gson/2.10.1/gson-2.10.1.jar:/Users/anatoliychubais/.m2/repository/org/mindrot/jbcrypt/0.4/jbcrypt-0.4.jar:/Users/anatoliychubais/.m2/repository/com/auth0/java-jwt/4.4.0/java-jwt-4.4.0.jar:/Users/anatoliychubais/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.14.2/jackson-databind-2.14.2.jar:/Users/anatoliychubais/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.14.2/jackson-annotations-2.14.2.jar:/Users/anatoliychubais/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.14.2/jackson-core-2.14.2.jar:/Users/anatoliychubais/.m2/repository/io/github/cdimascio/dotenv-java/3.0.0/dotenv-java-3.0.0.jar:/Users/anatoliychubais/.m2/repository/org/mockito/mockito-core/5.2.0/mockito-core-5.2.0.jar:/Users/anatoliychubais/.m2/repository/net/bytebuddy/byte-buddy/1.14.1/byte-buddy-1.14.1.jar:/Users/anatoliychubais/.m2/repository/net/bytebuddy/byte-buddy-agent/1.14.1/byte-buddy-agent-1.14.1.jar:/Users/anatoliychubais/.m2/repository/org/objenesis/objenesis/3.3/objenesis-3.3.jar:"/>
@@ -30,7 +30,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="/Users/anatoliychubais/Desktop/Java/StudentTracker/StudentTracker/target/surefire/surefirebooter-20250703135801721_3.jar"/>
+    <property name="surefire.real.class.path" value="/Users/anatoliychubais/Desktop/Java/StudentTracker/StudentTracker/target/surefire/surefirebooter-20250703145156717_3.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.runtime.version" value="17.0.15+0"/>
@@ -58,7 +58,7 @@
     <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.class.version" value="61.0"/>
   </properties>
-  <testcase name="testRegisterUser_Success" classname="com.laplateforme.tracker.service.UserServiceTest" time="0.98"/>
+  <testcase name="testRegisterUser_Success" classname="com.laplateforme.tracker.service.UserServiceTest" time="0.951"/>
   <testcase name="testRegisterUser_Duplicate" classname="com.laplateforme.tracker.service.UserServiceTest" time="0.001"/>
-  <testcase name="testRegisterUser_DAOInsertFails" classname="com.laplateforme.tracker.service.UserServiceTest" time="0.126"/>
+  <testcase name="testRegisterUser_DAOInsertFails" classname="com.laplateforme.tracker.service.UserServiceTest" time="0.123"/>
 </testsuite>
