@@ -11,6 +11,7 @@ import com.laplateforme.tracker.handler.GetStudentByIdHandler;
 import com.laplateforme.tracker.handler.CreateStudentHandler;
 import com.laplateforme.tracker.handler.UpdateStudentHandler;
 import com.laplateforme.tracker.handler.DeleteStudentHandler;
+import com.laplateforme.tracker.handler.RegisterUserHandler;
 import com.laplateforme.tracker.util.DatabaseManager;
 
 public class StudentTrackerServer {
@@ -36,6 +37,7 @@ public class StudentTrackerServer {
         exchange.sendResponseHeaders(404, -1);
       }
     });
+    server.createContext("/register", new RegisterUserHandler());
     server.setExecutor(null); // creates a default executor
     System.out.println("[INFO] HTTP server started on port " + port);
     server.start();
