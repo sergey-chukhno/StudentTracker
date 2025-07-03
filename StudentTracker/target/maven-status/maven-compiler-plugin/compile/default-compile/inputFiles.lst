@@ -5,9 +5,9 @@
 /Users/anatoliychubais/Desktop/Java/StudentTracker/StudentTracker/src/main/java/com/laplateforme/tracker/handler/DeleteStudentHandler.java
 /Users/anatoliychubais/Desktop/Java/StudentTracker/StudentTracker/src/main/java/com/laplateforme/tracker/handler/GetAllStudentsHandler.java
 /Users/anatoliychubais/Desktop/Java/StudentTracker/StudentTracker/src/main/java/com/laplateforme/tracker/handler/GetStudentByIdHandler.java
-/Users/anatoliychubais/Desktop/Java/StudentTracker/StudentTracker/src/main/java/com/laplateforme/tracker/handler/StudentsHandler.java
 /Users/anatoliychubais/Desktop/Java/StudentTracker/StudentTracker/src/main/java/com/laplateforme/tracker/handler/UpdateStudentHandler.java
 /Users/anatoliychubais/Desktop/Java/StudentTracker/StudentTracker/src/main/java/com/laplateforme/tracker/model/Student.java
+/Users/anatoliychubais/Desktop/Java/StudentTracker/StudentTracker/src/main/java/com/laplateforme/tracker/model/User.java
 /Users/anatoliychubais/Desktop/Java/StudentTracker/StudentTracker/src/main/java/com/laplateforme/tracker/service/StudentService.java
 /Users/anatoliychubais/Desktop/Java/StudentTracker/StudentTracker/src/main/java/com/laplateforme/tracker/util/DatabaseManager.java
 /Users/anatoliychubais/Desktop/Java/StudentTracker/StudentTracker/src/main/java/com/laplateforme/tracker/util/DatabaseTest.java

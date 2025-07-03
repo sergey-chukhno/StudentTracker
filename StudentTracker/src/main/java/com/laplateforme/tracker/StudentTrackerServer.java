@@ -11,9 +11,12 @@ import com.laplateforme.tracker.handler.GetStudentByIdHandler;
 import com.laplateforme.tracker.handler.CreateStudentHandler;
 import com.laplateforme.tracker.handler.UpdateStudentHandler;
 import com.laplateforme.tracker.handler.DeleteStudentHandler;
+import com.laplateforme.tracker.util.DatabaseManager;
 
 public class StudentTrackerServer {
   public static void main(String[] args) throws IOException {
+    // Ensure DB connection and table creation on startup
+    DatabaseManager.getConnection();
     int port = 8080;
     HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
     server.createContext("/students", exchange -> {
