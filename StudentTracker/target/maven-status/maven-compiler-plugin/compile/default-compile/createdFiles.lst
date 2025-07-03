@@ -1,3 +1,4 @@
+com/laplateforme/tracker/util/AuthHelper.class
 com/laplateforme/tracker/service/UserService.class
 com/laplateforme/tracker/dao/UserDAO.class
 com/laplateforme/tracker/model/Student.class

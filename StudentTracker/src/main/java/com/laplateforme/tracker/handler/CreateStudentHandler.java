@@ -10,6 +10,8 @@ import java.io.OutputStream;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import com.laplateforme.tracker.util.AuthHelper;
+import com.auth0.jwt.interfaces.DecodedJWT;
 
 public class CreateStudentHandler implements HttpHandler {
   private final StudentService studentService = new StudentService();
@@ -17,6 +19,9 @@ public class CreateStudentHandler implements HttpHandler {
 
   @Override
   public void handle(HttpExchange exchange) throws IOException {
+    DecodedJWT jwt = AuthHelper.requireAuth(exchange);
+    if (jwt == null)
+      return;
     if (!"POST".equalsIgnoreCase(exchange.getRequestMethod())) {
       exchange.sendResponseHeaders(405, -1); // Method Not Allowed
       return;

@@ -12,6 +12,8 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import com.laplateforme.tracker.util.AuthHelper;
+import com.auth0.jwt.interfaces.DecodedJWT;
 
 public class UpdateStudentHandler implements HttpHandler {
   private final StudentService studentService = new StudentService();
@@ -20,6 +22,9 @@ public class UpdateStudentHandler implements HttpHandler {
 
   @Override
   public void handle(HttpExchange exchange) throws IOException {
+    DecodedJWT jwt = AuthHelper.requireAuth(exchange);
+    if (jwt == null)
+      return;
     if (!"PUT".equalsIgnoreCase(exchange.getRequestMethod())) {
       exchange.sendResponseHeaders(405, -1); // Method Not Allowed
       return;
