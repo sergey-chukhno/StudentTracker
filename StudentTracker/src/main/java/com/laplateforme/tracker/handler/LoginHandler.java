@@ -15,12 +15,11 @@ import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import com.laplateforme.tracker.util.JwtUtil;
 
 public class LoginHandler implements HttpHandler {
   private final UserService userService = new UserService();
   private final Gson gson = new Gson();
-  // In production, use a secure, private secret key loaded from config
-  private static final String JWT_SECRET = "supersecretkey";
   private static final long EXPIRATION_TIME_MS = 24 * 60 * 60 * 1000; // 24 hours
 
   static class LoginRequest {
@@ -52,14 +51,13 @@ public class LoginHandler implements HttpHandler {
       return;
     }
     // Generate JWT token
-    Algorithm algorithm = Algorithm.HMAC256(JWT_SECRET);
     String token = JWT.create()
         .withSubject(user.getUsername())
         .withClaim("id", user.getId())
         .withClaim("username", user.getUsername())
         .withIssuedAt(new Date())
         .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME_MS))
-        .sign(algorithm);
+        .sign(JwtUtil.getAlgorithm());
     Map<String, String> resp = new HashMap<>();
     resp.put("token", token);
     String json = gson.toJson(resp);
