@@ -1,0 +1,182 @@
+/* Main style for Student Tracker GUI */
+.root {
+  -fx-font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+  -fx-background-color: #121212;
+  -fx-text-fill: #FFFFFF;
+}
+
+.heading {
+  -fx-font-size: 28px;
+  -fx-font-weight: bold;
+  -fx-text-fill: #1976D2;
+  -fx-padding: 0 0 16px 0;
+}
+
+.text-field,
+.password-field {
+  -fx-background-color: #23272F;
+  -fx-text-fill: #FFFFFF;
+  -fx-prompt-text-fill: #B0B0B0;
+  -fx-border-radius: 8px;
+  -fx-background-radius: 8px;
+  -fx-border-color: #333C4A;
+  -fx-border-width: 1px;
+  -fx-padding: 8px;
+  -fx-font-size: 16px;
+  -fx-effect: dropshadow(gaussian, #1976D2, 2, 0.2, 0, 1);
+  -fx-transition: border-color 0.2s;
+  -fx-max-width: 380px;
+  -fx-min-width: 220px;
+  -fx-pref-width: 350px;
+}
+
+.text-field:focused,
+.password-field:focused {
+  -fx-border-color: #1976D2;
+  -fx-effect: dropshadow(gaussian, #2196F3, 4, 0.3, 0, 2);
+}
+
+.button {
+  -fx-background-color: #1976D2;
+  -fx-text-fill: #FFFFFF;
+  -fx-font-size: 16px;
+  -fx-font-weight: bold;
+  -fx-background-radius: 8px;
+  -fx-border-radius: 8px;
+  -fx-padding: 10px 24px;
+  -fx-cursor: hand;
+  -fx-effect: dropshadow(gaussian, #2196F3, 2, 0.2, 0, 1);
+  -fx-transition: background-color 0.2s, scale 0.2s;
+}
+
+.button:hover {
+  -fx-background-color: #2196F3;
+  -fx-scale-x: 1.03;
+  -fx-scale-y: 1.03;
+}
+
+.hyperlink {
+  -fx-text-fill: #2196F3;
+  -fx-underline: false;
+  -fx-font-size: 16px;
+  -fx-cursor: hand;
+  -fx-transition: text-fill 0.2s;
+}
+
+.hyperlink:hover {
+  -fx-text-fill: #1976D2;
+  -fx-underline: true;
+}
+
+.error-label {
+  -fx-text-fill: #D32F2F;
+  -fx-font-size: 14px;
+  -fx-padding: 4px 0 0 0;
+}
+
+/* Light mode override */
+.root.light-mode {
+  -fx-background-color: #FFFFFF;
+  -fx-text-fill: #121212;
+}
+
+.root.light-mode .heading {
+  -fx-text-fill: #1976D2;
+}
+
+.root.light-mode .text-field,
+.root.light-mode .password-field {
+  -fx-background-color: #F5F5F5;
+  -fx-text-fill: #121212;
+  -fx-border-color: #E0E0E0;
+}
+
+.root.light-mode .text-field:focused,
+.root.light-mode .password-field:focused {
+  -fx-border-color: #1976D2;
+}
+
+.root.light-mode .button {
+  -fx-background-color: #1976D2;
+  -fx-text-fill: #FFFFFF;
+}
+
+.root.light-mode .button:hover {
+  -fx-background-color: #2196F3;
+}
+
+.root.light-mode .hyperlink {
+  -fx-text-fill: #1976D2;
+}
+
+.root.light-mode .hyperlink:hover {
+  -fx-text-fill: #2196F3;
+}
+
+.root.light-mode .error-label {
+  -fx-text-fill: #D32F2F;
+}
+
+/* Header styles */
+.header {
+  -fx-background-color: transparent;
+  -fx-padding: 8px 0 8px 0;
+  -fx-alignment: center;
+  -fx-min-height: 0;
+}
+
+.header-title {
+  display: none;
+}
+
+.header .image-view {
+  -fx-min-width: 480px;
+  -fx-min-height: 480px;
+  -fx-max-width: 480px;
+  -fx-max-height: 480px;
+  -fx-alignment: center;
+  -fx-margin: 0 0 0 0;
+}
+
+.theme-toggle {
+  -fx-background-color: transparent;
+  -fx-cursor: hand;
+  -fx-padding: 6px;
+  -fx-border-radius: 50%;
+  -fx-background-radius: 50%;
+  -fx-effect: dropshadow(gaussian, #2196F3, 2, 0.2, 0, 1);
+  -fx-min-width: 36px;
+  -fx-min-height: 36px;
+  -fx-max-width: 36px;
+  -fx-max-height: 36px;
+}
+
+.theme-toggle:hover {
+  -fx-background-color: #23272F;
+}
+
+/* Remove gray background from TabPane and TabBar */
+.main-tab-pane,
+.tab-pane,
+.tab-header-area,
+.tab-header-background {
+  -fx-background-color: transparent !important;
+  -fx-background: transparent !important;
+}
+
+.tab {
+  -fx-background-color: transparent !important;
+}
+
+/* Center the form */
+.main-content {
+  -fx-padding: 0 0 0 0;
+  -fx-alignment: top-center;
+  -fx-spacing: 32px;
+}
+
+/* Optionally, adjust VBox in login tab for less bottom padding */
+.vbox {
+  -fx-padding: 16px 0 0 0;
+  -fx-alignment: center;
+}
