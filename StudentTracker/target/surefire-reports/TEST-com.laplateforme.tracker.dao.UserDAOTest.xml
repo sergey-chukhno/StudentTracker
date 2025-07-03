@@ -1,42 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.laplateforme.tracker.dao.UserDAOTest" time="0.298" tests="3" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.laplateforme.tracker.dao.UserDAOTest" time="0.43" tests="3" errors="0" skipped="0" failures="0">
   <properties>
     <property name="surefire.printSummary" value="true"/>
-    <property name="java.specification.version" value="23"/>
+    <property name="java.specification.version" value="17"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
-    <property name="java.class.path" value="/Users/anatoliychubais/Desktop/Java/StudentTracker/StudentTracker/target/test-classes:/Users/anatoliychubais/Desktop/Java/StudentTracker/StudentTracker/target/classes:/Users/anatoliychubais/.m2/repository/junit/junit/3.8.1/junit-3.8.1.jar:/Users/anatoliychubais/.m2/repository/org/postgresql/postgresql/42.7.3/postgresql-42.7.3.jar:/Users/anatoliychubais/.m2/repository/org/checkerframework/checker-qual/3.42.0/checker-qual-3.42.0.jar:/Users/anatoliychubais/.m2/repository/com/google/code/gson/gson/2.10.1/gson-2.10.1.jar:/Users/anatoliychubais/.m2/repository/org/mindrot/jbcrypt/0.4/jbcrypt-0.4.jar:/Users/anatoliychubais/.m2/repository/com/auth0/java-jwt/4.4.0/java-jwt-4.4.0.jar:/Users/anatoliychubais/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.14.2/jackson-databind-2.14.2.jar:/Users/anatoliychubais/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.14.2/jackson-annotations-2.14.2.jar:/Users/anatoliychubais/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.14.2/jackson-core-2.14.2.jar:/Users/anatoliychubais/.m2/repository/io/github/cdimascio/dotenv-java/3.0.0/dotenv-java-3.0.0.jar:"/>
+    <property name="java.class.path" value="/Users/anatoliychubais/Desktop/Java/StudentTracker/StudentTracker/target/test-classes:/Users/anatoliychubais/Desktop/Java/StudentTracker/StudentTracker/target/classes:/Users/anatoliychubais/.m2/repository/junit/junit/3.8.1/junit-3.8.1.jar:/Users/anatoliychubais/.m2/repository/org/postgresql/postgresql/42.7.3/postgresql-42.7.3.jar:/Users/anatoliychubais/.m2/repository/org/checkerframework/checker-qual/3.42.0/checker-qual-3.42.0.jar:/Users/anatoliychubais/.m2/repository/com/google/code/gson/gson/2.10.1/gson-2.10.1.jar:/Users/anatoliychubais/.m2/repository/org/mindrot/jbcrypt/0.4/jbcrypt-0.4.jar:/Users/anatoliychubais/.m2/repository/com/auth0/java-jwt/4.4.0/java-jwt-4.4.0.jar:/Users/anatoliychubais/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.14.2/jackson-databind-2.14.2.jar:/Users/anatoliychubais/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.14.2/jackson-annotations-2.14.2.jar:/Users/anatoliychubais/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.14.2/jackson-core-2.14.2.jar:/Users/anatoliychubais/.m2/repository/io/github/cdimascio/dotenv-java/3.0.0/dotenv-java-3.0.0.jar:/Users/anatoliychubais/.m2/repository/org/mockito/mockito-core/5.2.0/mockito-core-5.2.0.jar:/Users/anatoliychubais/.m2/repository/net/bytebuddy/byte-buddy/1.14.1/byte-buddy-1.14.1.jar:/Users/anatoliychubais/.m2/repository/net/bytebuddy/byte-buddy-agent/1.14.1/byte-buddy-agent-1.14.1.jar:/Users/anatoliychubais/.m2/repository/org/objenesis/objenesis/3.3/objenesis-3.3.jar:"/>
     <property name="java.vm.vendor" value="Homebrew"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="java.vendor.url" value="https://github.com/Homebrew/homebrew-core/issues"/>
     <property name="os.name" value="Mac OS X"/>
-    <property name="java.vm.specification.version" value="23"/>
+    <property name="java.vm.specification.version" value="17"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="GB"/>
-    <property name="sun.boot.library.path" value="/opt/homebrew/Cellar/openjdk/23.0.2/libexec/openjdk.jdk/Contents/Home/lib"/>
-    <property name="sun.java.command" value="/Users/anatoliychubais/Desktop/Java/StudentTracker/StudentTracker/target/surefire/surefirebooter-20250703133156646_3.jar /Users/anatoliychubais/Desktop/Java/StudentTracker/StudentTracker/target/surefire 2025-07-03T13-31-56_587-jvmRun1 surefire-20250703133156646_1tmp surefire_0-20250703133156646_2tmp"/>
+    <property name="sun.boot.library.path" value="/opt/homebrew/Cellar/openjdk@17/17.0.15/libexec/openjdk.jdk/Contents/Home/lib"/>
+    <property name="sun.java.command" value="/Users/anatoliychubais/Desktop/Java/StudentTracker/StudentTracker/target/surefire/surefirebooter-20250703135801721_3.jar /Users/anatoliychubais/Desktop/Java/StudentTracker/StudentTracker/target/surefire 2025-07-03T13-58-01_641-jvmRun1 surefire-20250703135801721_1tmp surefire_0-20250703135801721_2tmp"/>
     <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="jdk.debug" value="release"/>
-    <property name="surefire.test.class.path" value="/Users/anatoliychubais/Desktop/Java/StudentTracker/StudentTracker/target/test-classes:/Users/anatoliychubais/Desktop/Java/StudentTracker/StudentTracker/target/classes:/Users/anatoliychubais/.m2/repository/junit/junit/3.8.1/junit-3.8.1.jar:/Users/anatoliychubais/.m2/repository/org/postgresql/postgresql/42.7.3/postgresql-42.7.3.jar:/Users/anatoliychubais/.m2/repository/org/checkerframework/checker-qual/3.42.0/checker-qual-3.42.0.jar:/Users/anatoliychubais/.m2/repository/com/google/code/gson/gson/2.10.1/gson-2.10.1.jar:/Users/anatoliychubais/.m2/repository/org/mindrot/jbcrypt/0.4/jbcrypt-0.4.jar:/Users/anatoliychubais/.m2/repository/com/auth0/java-jwt/4.4.0/java-jwt-4.4.0.jar:/Users/anatoliychubais/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.14.2/jackson-databind-2.14.2.jar:/Users/anatoliychubais/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.14.2/jackson-annotations-2.14.2.jar:/Users/anatoliychubais/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.14.2/jackson-core-2.14.2.jar:/Users/anatoliychubais/.m2/repository/io/github/cdimascio/dotenv-java/3.0.0/dotenv-java-3.0.0.jar:"/>
+    <property name="surefire.test.class.path" value="/Users/anatoliychubais/Desktop/Java/StudentTracker/StudentTracker/target/test-classes:/Users/anatoliychubais/Desktop/Java/StudentTracker/StudentTracker/target/classes:/Users/anatoliychubais/.m2/repository/junit/junit/3.8.1/junit-3.8.1.jar:/Users/anatoliychubais/.m2/repository/org/postgresql/postgresql/42.7.3/postgresql-42.7.3.jar:/Users/anatoliychubais/.m2/repository/org/checkerframework/checker-qual/3.42.0/checker-qual-3.42.0.jar:/Users/anatoliychubais/.m2/repository/com/google/code/gson/gson/2.10.1/gson-2.10.1.jar:/Users/anatoliychubais/.m2/repository/org/mindrot/jbcrypt/0.4/jbcrypt-0.4.jar:/Users/anatoliychubais/.m2/repository/com/auth0/java-jwt/4.4.0/java-jwt-4.4.0.jar:/Users/anatoliychubais/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.14.2/jackson-databind-2.14.2.jar:/Users/anatoliychubais/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.14.2/jackson-annotations-2.14.2.jar:/Users/anatoliychubais/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.14.2/jackson-core-2.14.2.jar:/Users/anatoliychubais/.m2/repository/io/github/cdimascio/dotenv-java/3.0.0/dotenv-java-3.0.0.jar:/Users/anatoliychubais/.m2/repository/org/mockito/mockito-core/5.2.0/mockito-core-5.2.0.jar:/Users/anatoliychubais/.m2/repository/net/bytebuddy/byte-buddy/1.14.1/byte-buddy-1.14.1.jar:/Users/anatoliychubais/.m2/repository/net/bytebuddy/byte-buddy-agent/1.14.1/byte-buddy-agent-1.14.1.jar:/Users/anatoliychubais/.m2/repository/org/objenesis/objenesis/3.3/objenesis-3.3.jar:"/>
     <property name="sun.cpu.endian" value="little"/>
     <property name="user.home" value="/Users/anatoliychubais"/>
     <property name="user.language" value="en"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
     <property name="surefire.useFile" value="false"/>
-    <property name="java.version.date" value="2025-01-21"/>
-    <property name="java.home" value="/opt/homebrew/Cellar/openjdk/23.0.2/libexec/openjdk.jdk/Contents/Home"/>
+    <property name="java.version.date" value="2025-04-15"/>
+    <property name="java.home" value="/opt/homebrew/Cellar/openjdk@17/17.0.15/libexec/openjdk.jdk/Contents/Home"/>
     <property name="file.separator" value="/"/>
     <property name="basedir" value="/Users/anatoliychubais/Desktop/Java/StudentTracker/StudentTracker"/>
     <property name="java.vm.compressedOopsMode" value="Zero based"/>
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="apple.awt.application.name" value="ForkedBooter"/>
-    <property name="surefire.real.class.path" value="/Users/anatoliychubais/Desktop/Java/StudentTracker/StudentTracker/target/surefire/surefirebooter-20250703133156646_3.jar"/>
+    <property name="surefire.real.class.path" value="/Users/anatoliychubais/Desktop/Java/StudentTracker/StudentTracker/target/surefire/surefirebooter-20250703135801721_3.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
-    <property name="java.runtime.version" value="23.0.2"/>
+    <property name="java.runtime.version" value="17.0.15+0"/>
     <property name="user.name" value="anatoliychubais"/>
-    <property name="stdout.encoding" value="UTF-8"/>
     <property name="path.separator" value=":"/>
     <property name="os.version" value="15.3.1"/>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
@@ -46,21 +44,21 @@
     <property name="localRepository" value="/Users/anatoliychubais/.m2/repository"/>
     <property name="java.vendor.url.bug" value="https://github.com/Homebrew/homebrew-core/issues"/>
     <property name="java.io.tmpdir" value="/var/folders/kq/bwx5g995251f9p7l3r7yvkhw0000gn/T/"/>
-    <property name="java.version" value="23.0.2"/>
+    <property name="java.version" value="17.0.15"/>
     <property name="user.dir" value="/Users/anatoliychubais/Desktop/Java/StudentTracker/StudentTracker"/>
     <property name="os.arch" value="aarch64"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
     <property name="native.encoding" value="UTF-8"/>
     <property name="java.library.path" value="/Users/anatoliychubais/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:."/>
     <property name="java.vm.info" value="mixed mode, sharing"/>
-    <property name="stderr.encoding" value="UTF-8"/>
     <property name="java.vendor" value="Homebrew"/>
-    <property name="java.vm.version" value="23.0.2"/>
+    <property name="java.vm.version" value="17.0.15+0"/>
+    <property name="java.specification.maintenance.version" value="1"/>
     <property name="sun.io.unicode.encoding" value="UnicodeBig"/>
     <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
-    <property name="java.class.version" value="67.0"/>
+    <property name="java.class.version" value="61.0"/>
   </properties>
-  <testcase name="testInsertAndFindUser" classname="com.laplateforme.tracker.dao.UserDAOTest" time="0.113">
+  <testcase name="testInsertAndFindUser" classname="com.laplateforme.tracker.dao.UserDAOTest" time="0.161">
     <system-out><![CDATA[[DEBUG] Attempting to load db.properties from classpath...
 [DEBUG] Loaded JDBC URL: jdbc:postgresql://localhost:5432/student_tracker
 [DEBUG] Loaded DB user: postgres
@@ -95,7 +93,7 @@
 [INFO] Connected to database: student_tracker
 ]]></system-out>
   </testcase>
-  <testcase name="testDuplicateUsername" classname="com.laplateforme.tracker.dao.UserDAOTest" time="0.097">
+  <testcase name="testDuplicateUsername" classname="com.laplateforme.tracker.dao.UserDAOTest" time="0.141">
     <system-out><![CDATA[[DEBUG] Attempting to load db.properties from classpath...
 [DEBUG] Loaded JDBC URL: jdbc:postgresql://localhost:5432/student_tracker
 [DEBUG] Loaded DB user: postgres
@@ -140,8 +138,10 @@
 	at org.postgresql.jdbc.PgPreparedStatement.executeQuery(PgPreparedStatement.java:137)
 	at com.laplateforme.tracker.dao.UserDAO.insertUser(UserDAO.java:17)
 	at com.laplateforme.tracker.dao.UserDAOTest.testDuplicateUsername(UserDAOTest.java:44)
-	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
 	at junit.framework.TestCase.runTest(TestCase.java:154)
 	at junit.framework.TestCase.runBare(TestCase.java:127)
 	at junit.framework.TestResult$1.protect(TestResult.java:106)
@@ -150,8 +150,10 @@
 	at junit.framework.TestCase.run(TestCase.java:118)
 	at junit.framework.TestSuite.runTest(TestSuite.java:208)
 	at junit.framework.TestSuite.run(TestSuite.java:203)
-	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
 	at org.apache.maven.surefire.junit.JUnitTestSetExecutor.execute(JUnitTestSetExecutor.java:81)
 	at org.apache.maven.surefire.junit.JUnit3Provider.executeTestSet(JUnit3Provider.java:131)
 	at org.apache.maven.surefire.junit.JUnit3Provider.invoke(JUnit3Provider.java:93)
@@ -161,7 +163,7 @@
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
 ]]></system-err>
   </testcase>
-  <testcase name="testFindByUsernameNotFound" classname="com.laplateforme.tracker.dao.UserDAOTest" time="0.085">
+  <testcase name="testFindByUsernameNotFound" classname="com.laplateforme.tracker.dao.UserDAOTest" time="0.126">
     <system-out><![CDATA[[DEBUG] Attempting to load db.properties from classpath...
 [DEBUG] Loaded JDBC URL: jdbc:postgresql://localhost:5432/student_tracker
 [DEBUG] Loaded DB user: postgres
