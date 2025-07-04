@@ -21,6 +21,9 @@
   <center>
     <VBox alignment="TOP_CENTER" spacing="32.0" styleClass="main-content">
       <AnchorPane>
+        <VBox.margin>
+          <Insets top="64" />
+        </VBox.margin>
         <VBox alignment="CENTER" spacing="16.0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0">
           <Label text="Register" styleClass="heading" />
           <TextField fx:id="usernameField" promptText="Username" maxWidth="380.0" />
@@ -29,7 +32,7 @@
           <Button fx:id="registerButton" text="Register" onAction="#handleRegister" maxWidth="200.0" />
           <Label fx:id="errorLabel" styleClass="error-label" />
           <HBox alignment="CENTER" spacing="4.0">
-            <Label text="Already have an account?" />
+            <Label text="Already have an account?" styleClass="info-label" />
             <Hyperlink fx:id="loginLink" text="Back to login" onAction="#handleLoginLink" />
           </HBox>
         </VBox>
