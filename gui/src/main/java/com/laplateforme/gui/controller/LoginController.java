@@ -2,6 +2,8 @@ package com.laplateforme.gui.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -13,6 +15,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import com.laplateforme.gui.MainApp;
 
 public class LoginController {
   @FXML
@@ -25,12 +28,6 @@ public class LoginController {
   private Hyperlink registerLink;
   @FXML
   private Label errorLabel;
-  @FXML
-  private TabPane tabPane;
-  @FXML
-  private Tab loginTab;
-  @FXML
-  private Tab registerTab;
   @FXML
   private ImageView logoImage;
   @FXML
@@ -63,7 +60,11 @@ public class LoginController {
 
   @FXML
   private void handleRegisterLink(ActionEvent event) {
-    tabPane.getSelectionModel().select(registerTab);
+    try {
+      MainApp.setRoot("register.fxml");
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   @FXML
@@ -82,6 +83,9 @@ public class LoginController {
 
   private void updateThemeIcon() {
     String iconPath = darkMode ? "/com/laplateforme/gui/assets/moon.png" : "/com/laplateforme/gui/assets/sun.png";
-    themeToggle.setGraphic(new ImageView(new Image(getClass().getResource(iconPath).toExternalForm())));
+    ImageView icon = new ImageView(new Image(getClass().getResource(iconPath).toExternalForm()));
+    icon.setFitWidth(28);
+    icon.setFitHeight(28);
+    themeToggle.setGraphic(icon);
   }
 }
