@@ -16,6 +16,13 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import com.laplateforme.gui.MainApp;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
+import com.google.gson.Gson;
+import javafx.application.Platform;
 
 public class RegisterController {
   @FXML
@@ -58,7 +65,6 @@ public class RegisterController {
 
   @FXML
   private void handleRegister(ActionEvent event) {
-    // TODO: Implement registration logic (call backend)
     String username = usernameField.getText();
     String password = passwordField.getText();
     String confirmPassword = confirmPasswordField.getText();
@@ -70,10 +76,59 @@ public class RegisterController {
       errorLabel.setText("Passwords do not match.");
       return;
     }
-    // Simulate registration success for now
     errorLabel.setText("");
-    // TODO: Navigate to login tab
-    tabPane.getSelectionModel().select(loginTab);
+    registerButton.setDisable(true);
+    // Prepare JSON
+    Gson gson = new Gson();
+    String json = gson.toJson(new RegisterRequest(username, password));
+    // Send HTTP request in background
+    new Thread(() -> {
+      try {
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder()
+            .uri(URI.create("http://localhost:8080/register"))
+            .header("Content-Type", "application/json")
+            .POST(HttpRequest.BodyPublishers.ofString(json, StandardCharsets.UTF_8))
+            .build();
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        Platform.runLater(() -> {
+          registerButton.setDisable(false);
+          if (response.statusCode() == 201) {
+            errorLabel.setStyle("-fx-text-fill: #388e3c;");
+            errorLabel.setText("Registration successful! Please log in.");
+            // Optionally, switch to login page after a short delay
+            new Thread(() -> {
+              try {
+                Thread.sleep(1200);
+              } catch (InterruptedException ignored) {
+              }
+              Platform.runLater(() -> {
+                try {
+                  MainApp.setRoot("login.fxml");
+                } catch (Exception e) {
+                  e.printStackTrace();
+                }
+              });
+            }).start();
+          } else if (response.statusCode() == 409) {
+            errorLabel.setStyle("");
+            errorLabel.setText("Username already exists.");
+          } else if (response.statusCode() == 400) {
+            errorLabel.setStyle("");
+            errorLabel.setText("Invalid input. Please check your data.");
+          } else {
+            errorLabel.setStyle("");
+            errorLabel.setText("Registration failed. Please try again.");
+          }
+        });
+      } catch (Exception e) {
+        Platform.runLater(() -> {
+          registerButton.setDisable(false);
+          errorLabel.setStyle("");
+          errorLabel.setText("Network error. Please try again.");
+        });
+      }
+    }).start();
   }
 
   @FXML
@@ -106,5 +161,16 @@ public class RegisterController {
     icon.setFitHeight(28);
     if (themeToggle != null)
       themeToggle.setGraphic(icon);
+  }
+
+  // Helper class for JSON serialization
+  private static class RegisterRequest {
+    String username;
+    String password;
+
+    RegisterRequest(String username, String password) {
+      this.username = username;
+      this.password = password;
+    }
   }
 }
