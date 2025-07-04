@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.collections.FXCollections?>
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.laplateforme.gui.controller.MainController">
+  <top>
+    <HBox alignment="CENTER_LEFT" spacing="16.0" styleClass="header">
+      <padding>
+        <Insets top="16" right="16" bottom="16" left="16" />
+      </padding>
+      <ImageView fx:id="logoImage" fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="welcomeLabel" text="Welcome" styleClass="heading" />
+    </HBox>
+  </top>
+  <left>
+    <VBox alignment="TOP_CENTER" spacing="16.0" styleClass="sidebar" prefWidth="80">
+      <Button fx:id="dashboardButton" styleClass="sidebar-btn">
+        <tooltip>
+          <Tooltip text="Dashboard" />
+        </tooltip>
+        <graphic>
+          <ImageView fitHeight="32" fitWidth="32" preserveRatio="true" pickOnBounds="true"/>
+          <!-- TODO: set icon --></graphic>
+      </Button>
+      <Button fx:id="analyticsButton" styleClass="sidebar-btn">
+        <tooltip>
+          <Tooltip text="Analytics" />
+        </tooltip>
+        <graphic>
+          <ImageView fitHeight="32" fitWidth="32" preserveRatio="true" pickOnBounds="true"/>
+          <!-- TODO: set icon --></graphic>
+      </Button>
+      <Region VBox.vgrow="ALWAYS" />
+      <Button fx:id="exitButton" styleClass="sidebar-btn exit-btn">
+        <tooltip>
+          <Tooltip text="Exit" />
+        </tooltip>
+        <graphic>
+          <ImageView fitHeight="32" fitWidth="32" preserveRatio="true" pickOnBounds="true"/>
+          <!-- TODO: set icon --></graphic>
+      </Button>
+    </VBox>
+  </left>
+  <center>
+    <VBox alignment="TOP_CENTER" spacing="16.0" styleClass="main-content">
+      <padding>
+        <Insets top="32" right="32" bottom="32" left="32" />
+      </padding>
+      <HBox alignment="CENTER_LEFT" spacing="16.0">
+        <TextField fx:id="searchField" promptText="Search students..." maxWidth="320.0" />
+        <Label text="Show:" />
+        <ComboBox fx:id="paginationCombo" prefWidth="80.0" />
+        <Button fx:id="exportPdfButton" text="Export to PDF" />
+      </HBox>
+      <Separator />
+      <StackPane fx:id="mainFrame" styleClass="main-frame" prefHeight="480.0">
+        <Label text="[Student list will appear here]" />
+      </StackPane>
+    </VBox>
+  </center>
+</BorderPane> 
