@@ -445,3 +445,8 @@
 .root.light-mode .custom-dialog-label {
   -fx-text-fill: #222;
 }
+
+.custom-dialog .content.label,
+.dialog-pane .content.label {
+  -fx-text-fill: #e0e0e0;
+}

@@ -171,7 +171,7 @@ public class MainController {
             });
             deleteBtn.setOnAction(e -> {
               Student student = getTableView().getItems().get(getIndex());
-              // TODO: handle delete
+              showDeleteStudentDialog(student);
             });
           }
 
@@ -406,6 +406,49 @@ public class MainController {
           } else {
             javafx.application.Platform
                 .runLater(() -> showAlert("Failed to add student. Status: " + response.statusCode()));
+          }
+        })
+        .exceptionally(e -> {
+          e.printStackTrace();
+          javafx.application.Platform.runLater(() -> showAlert("Network error: " + e.getMessage()));
+          return null;
+        });
+  }
+
+  private void showDeleteStudentDialog(Student student) {
+    Alert alert = new Alert(AlertType.CONFIRMATION);
+    alert.setTitle("Delete Student");
+    alert.setHeaderText(null);
+    alert.setContentText(
+        "Are you sure you want to delete " + student.getFirstName() + " " + student.getLastName() + "?");
+    DialogPane dialogPane = alert.getDialogPane();
+    dialogPane.getStyleClass().add("custom-dialog");
+    dialogPane.getStylesheets().add(addStudentButton.getScene().getStylesheets().get(0));
+    dialogPane.getStyleClass().addAll(addStudentButton.getScene().getRoot().getStyleClass());
+    Stage stage = (Stage) addStudentButton.getScene().getWindow();
+    alert.initOwner(stage);
+    Optional<ButtonType> result = alert.showAndWait();
+    if (result.isPresent() && result.get() == ButtonType.OK) {
+      deleteStudentInBackend(student);
+    }
+  }
+
+  private void deleteStudentInBackend(Student student) {
+    if (token == null || token.isEmpty())
+      return;
+    HttpClient client = HttpClient.newHttpClient();
+    HttpRequest request = HttpRequest.newBuilder()
+        .uri(URI.create("http://localhost:8080/students/" + student.getId()))
+        .header("Authorization", "Bearer " + token)
+        .DELETE()
+        .build();
+    client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+        .thenAccept(response -> {
+          if (response.statusCode() == 204) {
+            fetchAndPopulateStudents();
+          } else {
+            javafx.application.Platform
+                .runLater(() -> showAlert("Failed to delete student. Status: " + response.statusCode()));
           }
         })
         .exceptionally(e -> {
