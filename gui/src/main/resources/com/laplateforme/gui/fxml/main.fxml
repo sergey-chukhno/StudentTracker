@@ -60,14 +60,14 @@
         <Button fx:id="addStudentButton" text="Add Student" styleClass="student-add-btn" />
       </HBox>
       <Separator />
-      <StackPane fx:id="mainFrame" styleClass="main-frame" prefHeight="480.0">
-        <TableView fx:id="studentTable" styleClass="student-table" prefHeight="480.0">
+      <StackPane fx:id="mainFrame" styleClass="main-frame" prefHeight="700.0">
+        <TableView fx:id="studentTable" styleClass="student-table" prefHeight="700.0">
           <columns>
             <TableColumn fx:id="firstNameColumn" text="First Name" prefWidth="320" minWidth="240" maxWidth="600" />
             <TableColumn fx:id="lastNameColumn" text="Last Name" prefWidth="320" minWidth="240" maxWidth="600" />
             <TableColumn fx:id="ageColumn" text="Age" prefWidth="160" minWidth="100" maxWidth="240" />
             <TableColumn fx:id="gradeColumn" text="Grade" prefWidth="160" minWidth="100" maxWidth="240" />
-            <TableColumn fx:id="actionsColumn" text="Actions" prefWidth="100" minWidth="70" maxWidth="120" />
+            <TableColumn fx:id="actionsColumn" text="Actions" prefWidth="180" minWidth="140" maxWidth="240" />
           </columns>
         </TableView>
       </StackPane>

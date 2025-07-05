@@ -383,11 +383,13 @@
 }
 
 .root.light-mode .student-table .table-row-cell {
-  -fx-background-color: #e3f0ff;
+  -fx-background-color: #e0e7ef;
+  -fx-text-fill: #222;
 }
 
 .root.light-mode .student-table .table-row-cell:odd {
-  -fx-background-color: #cbe3ff;
+  -fx-background-color: #c7d6ee;
+  -fx-text-fill: #222;
 }
 
 .root.light-mode .student-table .table-row-cell:selected {
@@ -402,4 +404,22 @@
 
 .root.light-mode .student-add-btn:hover {
   -fx-background-color: #388e3c;
+}
+
+.root.light-mode .student-update-btn {
+  -fx-background-color: #fbc16a;
+  -fx-text-fill: #fff;
+}
+
+.root.light-mode .student-update-btn:hover {
+  -fx-background-color: #f5a623;
+}
+
+.root.light-mode .student-delete-btn {
+  -fx-background-color: #f28b82;
+  -fx-text-fill: #fff;
+}
+
+.root.light-mode .student-delete-btn:hover {
+  -fx-background-color: #e57373;
 }

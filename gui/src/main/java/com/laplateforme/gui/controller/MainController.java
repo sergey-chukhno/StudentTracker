@@ -8,6 +8,23 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TableColumn;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.cell.PropertyValueFactory;
+import com.laplateforme.gui.Student;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.net.URI;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import java.util.List;
+import javafx.util.Callback;
+import javafx.scene.control.TableCell;
+import javafx.scene.layout.HBox;
+import javafx.geometry.Pos;
 
 public class MainController {
   @FXML
@@ -24,6 +41,7 @@ public class MainController {
     if (welcomeLabel != null) {
       welcomeLabel.setText("Welcome " + username);
     }
+    fetchAndPopulateStudents();
   }
 
   @FXML
@@ -51,6 +69,18 @@ public class MainController {
   @FXML
   private Button themeToggle;
   private boolean darkMode = true;
+  @FXML
+  private TableView<Student> studentTable;
+  @FXML
+  private TableColumn<Student, String> firstNameColumn;
+  @FXML
+  private TableColumn<Student, String> lastNameColumn;
+  @FXML
+  private TableColumn<Student, Integer> ageColumn;
+  @FXML
+  private TableColumn<Student, Double> gradeColumn;
+  @FXML
+  private TableColumn<Student, Void> actionsColumn;
 
   @FXML
   private void initialize() {
@@ -74,6 +104,9 @@ public class MainController {
       themeToggle.setVisible(true);
       themeToggle.setOnAction(e -> handleThemeToggle());
     }
+    if (studentTable != null) {
+      setupStudentTable();
+    }
   }
 
   private void handleThemeToggle() {
@@ -95,5 +128,78 @@ public class MainController {
     icon.setFitWidth(28);
     icon.setFitHeight(28);
     themeToggle.setGraphic(icon);
+  }
+
+  private void setupStudentTable() {
+    firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+    lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+    ageColumn.setCellValueFactory(new PropertyValueFactory<>("age"));
+    gradeColumn.setCellValueFactory(new PropertyValueFactory<>("grade"));
+    // Actions column setup
+    actionsColumn.setCellFactory(getActionsCellFactory());
+    // Ensure only intended columns are shown
+    studentTable.getColumns().setAll(firstNameColumn, lastNameColumn, ageColumn, gradeColumn, actionsColumn);
+  }
+
+  private Callback<TableColumn<Student, Void>, TableCell<Student, Void>> getActionsCellFactory() {
+    return new Callback<TableColumn<Student, Void>, TableCell<Student, Void>>() {
+      @Override
+      public TableCell<Student, Void> call(final TableColumn<Student, Void> param) {
+        return new TableCell<Student, Void>() {
+          private final Button updateBtn = new Button("Update");
+          private final Button deleteBtn = new Button("Delete");
+          {
+            updateBtn.getStyleClass().addAll("student-action-btn", "student-update-btn");
+            deleteBtn.getStyleClass().addAll("student-action-btn", "student-delete-btn");
+            updateBtn.setOnAction(e -> {
+              Student student = getTableView().getItems().get(getIndex());
+              // TODO: handle update
+            });
+            deleteBtn.setOnAction(e -> {
+              Student student = getTableView().getItems().get(getIndex());
+              // TODO: handle delete
+            });
+          }
+
+          @Override
+          public void updateItem(Void item, boolean empty) {
+            super.updateItem(item, empty);
+            if (empty) {
+              setGraphic(null);
+            } else {
+              HBox box = new HBox(10, updateBtn, deleteBtn);
+              box.setAlignment(Pos.CENTER_LEFT);
+              setGraphic(box);
+            }
+          }
+        };
+      }
+    };
+  }
+
+  private void fetchAndPopulateStudents() {
+    if (token == null || token.isEmpty())
+      return;
+    HttpClient client = HttpClient.newHttpClient();
+    HttpRequest request = HttpRequest.newBuilder()
+        .uri(URI.create("http://localhost:8080/students"))
+        .header("Authorization", "Bearer " + token)
+        .GET()
+        .build();
+    client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+        .thenApply(HttpResponse::body)
+        .thenAccept(this::updateStudentTableFromJson)
+        .exceptionally(e -> {
+          e.printStackTrace();
+          return null;
+        });
+  }
+
+  private void updateStudentTableFromJson(String json) {
+    Gson gson = new Gson();
+    List<Student> students = gson.fromJson(json, new TypeToken<List<Student>>() {
+    }.getType());
+    ObservableList<Student> data = FXCollections.observableArrayList(students);
+    javafx.application.Platform.runLater(() -> studentTable.setItems(data));
   }
 }
