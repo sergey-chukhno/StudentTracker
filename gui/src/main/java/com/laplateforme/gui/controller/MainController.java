@@ -48,6 +48,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import javafx.stage.FileChooser;
+import javafx.collections.transformation.SortedList;
 
 public class MainController {
   @FXML
@@ -117,6 +118,8 @@ public class MainController {
 
   private FilteredList<Student> filteredStudents;
   private String currentSearch = "";
+  private SortedList<Student> sortedStudents;
+  private ObservableList<Student> allStudents = FXCollections.observableArrayList();
 
   @FXML
   private void initialize() {
@@ -241,11 +244,13 @@ public class MainController {
     Gson gson = new Gson();
     List<Student> students = gson.fromJson(json, new TypeToken<List<Student>>() {
     }.getType());
-    ObservableList<Student> data = FXCollections.observableArrayList(students);
-    filteredStudents = new FilteredList<>(data, s -> true);
+    allStudents.setAll(students);
+    filteredStudents = new FilteredList<>(allStudents, s -> true);
+    sortedStudents = new SortedList<>(filteredStudents);
     javafx.application.Platform.runLater(() -> {
       setupPagination();
-      studentTable.setItems(filteredStudents);
+      sortedStudents.comparatorProperty().bind(studentTable.comparatorProperty());
+      studentTable.setItems(sortedStudents);
     });
     setupSearchFilter();
   }
@@ -280,16 +285,12 @@ public class MainController {
   }
 
   private void updatePaginationPredicate() {
-    ObservableList<?> all = filteredStudents.getSource();
     // First, filter by search
-    List<Student> searchFiltered = all.filtered(s -> (s instanceof Student)
-        && ((((Student) s).getFirstName() != null && ((Student) s).getFirstName().toLowerCase().contains(currentSearch))
-            ||
-            (((Student) s).getLastName() != null && ((Student) s).getLastName().toLowerCase().contains(currentSearch))
-            ||
-            String.valueOf(((Student) s).getAge()).contains(currentSearch) ||
-            String.valueOf(((Student) s).getGrade()).contains(currentSearch)))
-        .stream().map(s -> (Student) s).toList();
+    List<Student> searchFiltered = allStudents
+        .filtered(s -> (s.getFirstName() != null && s.getFirstName().toLowerCase().contains(currentSearch)) ||
+            (s.getLastName() != null && s.getLastName().toLowerCase().contains(currentSearch)) ||
+            String.valueOf(s.getAge()).contains(currentSearch) ||
+            String.valueOf(s.getGrade()).contains(currentSearch));
     int totalItems = searchFiltered.size();
     totalPages = (int) Math.ceil((double) totalItems / pageSize);
     if (totalPages == 0)
@@ -585,19 +586,13 @@ public class MainController {
       table.addCell("Last Name");
       table.addCell("Age");
       table.addCell("Grade");
-      ObservableList<?> all = filteredStudents.getSource();
-      String search = currentSearch;
-      all.filtered(s -> (s instanceof Student)
-          && ((((Student) s).getFirstName() != null && ((Student) s).getFirstName().toLowerCase().contains(search)) ||
-              (((Student) s).getLastName() != null && ((Student) s).getLastName().toLowerCase().contains(search)) ||
-              String.valueOf(((Student) s).getAge()).contains(search) ||
-              String.valueOf(((Student) s).getGrade()).contains(search)))
-          .stream().map(s -> (Student) s).forEach(student -> {
-            table.addCell(student.getFirstName());
-            table.addCell(student.getLastName());
-            table.addCell(String.valueOf(student.getAge()));
-            table.addCell(String.valueOf(student.getGrade()));
-          });
+      // Export all students in current sorted and filtered order
+      for (Student student : sortedStudents) {
+        table.addCell(student.getFirstName());
+        table.addCell(student.getLastName());
+        table.addCell(String.valueOf(student.getAge()));
+        table.addCell(String.valueOf(student.getGrade()));
+      }
       document.add(table);
       document.close();
     } catch (DocumentException | IOException ex) {
