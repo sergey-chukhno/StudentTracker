@@ -25,6 +25,17 @@ import javafx.util.Callback;
 import javafx.scene.control.TableCell;
 import javafx.scene.layout.HBox;
 import javafx.geometry.Pos;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.DialogPane;
+import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import java.util.Optional;
+import java.net.http.HttpRequest.BodyPublishers;
+import javafx.stage.Stage;
 
 public class MainController {
   @FXML
@@ -103,6 +114,9 @@ public class MainController {
       updateThemeIcon();
       themeToggle.setVisible(true);
       themeToggle.setOnAction(e -> handleThemeToggle());
+    }
+    if (addStudentButton != null) {
+      addStudentButton.setOnAction(e -> showAddStudentDialog());
     }
     if (studentTable != null) {
       setupStudentTable();
@@ -201,5 +215,109 @@ public class MainController {
     }.getType());
     ObservableList<Student> data = FXCollections.observableArrayList(students);
     javafx.application.Platform.runLater(() -> studentTable.setItems(data));
+  }
+
+  private void showAddStudentDialog() {
+    Dialog<Student> dialog = new Dialog<>();
+    dialog.setTitle("Add Student");
+    DialogPane dialogPane = dialog.getDialogPane();
+    dialogPane.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+
+    TextField firstNameField = new TextField();
+    TextField lastNameField = new TextField();
+    TextField ageField = new TextField();
+    TextField gradeField = new TextField();
+
+    GridPane grid = new GridPane();
+    grid.setHgap(10);
+    grid.setVgap(10);
+    dialogPane.getStyleClass().add("custom-dialog");
+    Label firstNameLabel = new Label("First Name:");
+    firstNameLabel.getStyleClass().add("custom-dialog-label");
+    Label lastNameLabel = new Label("Last Name:");
+    lastNameLabel.getStyleClass().add("custom-dialog-label");
+    Label ageLabel = new Label("Age:");
+    ageLabel.getStyleClass().add("custom-dialog-label");
+    Label gradeLabel = new Label("Grade:");
+    gradeLabel.getStyleClass().add("custom-dialog-label");
+    grid.add(firstNameLabel, 0, 0);
+    grid.add(firstNameField, 1, 0);
+    grid.add(lastNameLabel, 0, 1);
+    grid.add(lastNameField, 1, 1);
+    grid.add(ageLabel, 0, 2);
+    grid.add(ageField, 1, 2);
+    grid.add(gradeLabel, 0, 3);
+    grid.add(gradeField, 1, 3);
+    dialogPane.setContent(grid);
+
+    // Inherit root style class and stylesheet for correct theme
+    dialogPane.getStylesheets().add(addStudentButton.getScene().getStylesheets().get(0));
+    dialogPane.getStyleClass().addAll(addStudentButton.getScene().getRoot().getStyleClass());
+
+    dialog.setResultConverter(dialogButton -> {
+      if (dialogButton == ButtonType.OK) {
+        String firstName = firstNameField.getText().trim();
+        String lastName = lastNameField.getText().trim();
+        String ageText = ageField.getText().trim();
+        String gradeText = gradeField.getText().trim();
+        if (firstName.isEmpty() || lastName.isEmpty() || ageText.isEmpty() || gradeText.isEmpty()) {
+          showAlert("All fields are required.");
+          return null;
+        }
+        int age;
+        double grade;
+        try {
+          age = Integer.parseInt(ageText);
+          grade = Double.parseDouble(gradeText);
+        } catch (NumberFormatException e) {
+          showAlert("Age must be an integer and grade must be a number.");
+          return null;
+        }
+        return new Student(0, firstName, lastName, age, grade);
+      }
+      return null;
+    });
+
+    Stage stage = (Stage) addStudentButton.getScene().getWindow();
+    dialog.initOwner(stage);
+    Optional<Student> result = dialog.showAndWait();
+    result.ifPresent(this::addStudentToBackend);
+  }
+
+  private void showAlert(String message) {
+    Alert alert = new Alert(AlertType.ERROR);
+    alert.setTitle("Input Error");
+    alert.setHeaderText(null);
+    alert.setContentText(message);
+    alert.showAndWait();
+  }
+
+  private void addStudentToBackend(Student student) {
+    if (token == null || token.isEmpty())
+      return;
+    Gson gson = new Gson();
+    String json = gson.toJson(student);
+    HttpClient client = HttpClient.newHttpClient();
+    HttpRequest request = HttpRequest.newBuilder()
+        .uri(URI.create("http://localhost:8080/students"))
+        .header("Authorization", "Bearer " + token)
+        .header("Content-Type", "application/json")
+        .POST(BodyPublishers.ofString(json))
+        .build();
+    client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+        .thenAccept(response -> {
+          if (response.statusCode() == 201) {
+            // Refresh table
+            fetchAndPopulateStudents();
+          } else {
+            javafx.application.Platform
+                .runLater(() -> showAlert("Failed to add student. Status: " + response.statusCode()));
+          }
+        })
+        .exceptionally(e -> {
+          e.printStackTrace();
+          javafx.application.Platform.runLater(() -> showAlert("Network error: " + e.getMessage()));
+          return null;
+        });
   }
 }

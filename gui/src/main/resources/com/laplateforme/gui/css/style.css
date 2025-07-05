@@ -423,3 +423,25 @@
 .root.light-mode .student-delete-btn:hover {
   -fx-background-color: #e57373;
 }
+
+.custom-dialog .dialog-pane {
+  -fx-background-color: #181c24;
+}
+
+.custom-dialog-label {
+  -fx-text-fill: #fff;
+}
+
+.root.light-mode .custom-dialog .dialog-pane,
+.root.light-mode .custom-dialog .dialog-pane .content,
+.root.light-mode .custom-dialog .dialog-pane .header-panel {
+  -fx-background-color: #f5f5f5 !important;
+}
+
+.root.light-mode .dialog-pane {
+  -fx-background-color: #f5f5f5 !important;
+}
+
+.root.light-mode .custom-dialog-label {
+  -fx-text-fill: #222;
+}
