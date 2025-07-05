@@ -36,6 +36,7 @@ import javafx.scene.control.Alert.AlertType;
 import java.util.Optional;
 import java.net.http.HttpRequest.BodyPublishers;
 import javafx.stage.Stage;
+import javafx.collections.transformation.FilteredList;
 
 public class MainController {
   @FXML
@@ -92,6 +93,8 @@ public class MainController {
   private TableColumn<Student, Double> gradeColumn;
   @FXML
   private TableColumn<Student, Void> actionsColumn;
+
+  private FilteredList<Student> filteredStudents;
 
   @FXML
   private void initialize() {
@@ -214,7 +217,26 @@ public class MainController {
     List<Student> students = gson.fromJson(json, new TypeToken<List<Student>>() {
     }.getType());
     ObservableList<Student> data = FXCollections.observableArrayList(students);
-    javafx.application.Platform.runLater(() -> studentTable.setItems(data));
+    filteredStudents = new FilteredList<>(data, s -> true);
+    javafx.application.Platform.runLater(() -> studentTable.setItems(filteredStudents));
+    setupSearchFilter();
+  }
+
+  private void setupSearchFilter() {
+    if (searchField == null)
+      return;
+    searchField.textProperty().addListener((obs, oldVal, newVal) -> {
+      String filter = newVal.toLowerCase().trim();
+      if (filter.isEmpty()) {
+        filteredStudents.setPredicate(s -> true);
+      } else {
+        filteredStudents
+            .setPredicate(s -> (s.getFirstName() != null && s.getFirstName().toLowerCase().contains(filter)) ||
+                (s.getLastName() != null && s.getLastName().toLowerCase().contains(filter)) ||
+                String.valueOf(s.getAge()).contains(filter) ||
+                String.valueOf(s.getGrade()).contains(filter));
+      }
+    });
   }
 
   private void showAddStudentDialog() {
