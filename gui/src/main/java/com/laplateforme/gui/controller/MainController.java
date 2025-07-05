@@ -93,8 +93,19 @@ public class MainController {
   private TableColumn<Student, Double> gradeColumn;
   @FXML
   private TableColumn<Student, Void> actionsColumn;
+  @FXML
+  private Button prevPageButton;
+  @FXML
+  private Button nextPageButton;
+  @FXML
+  private Label pageIndicator;
+
+  private int currentPage = 1;
+  private int pageSize = 10;
+  private int totalPages = 1;
 
   private FilteredList<Student> filteredStudents;
+  private String currentSearch = "";
 
   @FXML
   private void initialize() {
@@ -218,24 +229,81 @@ public class MainController {
     }.getType());
     ObservableList<Student> data = FXCollections.observableArrayList(students);
     filteredStudents = new FilteredList<>(data, s -> true);
-    javafx.application.Platform.runLater(() -> studentTable.setItems(filteredStudents));
+    javafx.application.Platform.runLater(() -> {
+      setupPagination();
+      studentTable.setItems(filteredStudents);
+    });
     setupSearchFilter();
+  }
+
+  private void setupPagination() {
+    if (paginationCombo != null) {
+      paginationCombo.getItems().setAll(10, 25, 50);
+      paginationCombo.setValue(pageSize);
+      paginationCombo.valueProperty().addListener((obs, oldVal, newVal) -> {
+        pageSize = newVal;
+        currentPage = 1;
+        updatePaginationPredicate();
+      });
+    }
+    if (prevPageButton != null) {
+      prevPageButton.setOnAction(e -> {
+        if (currentPage > 1) {
+          currentPage--;
+          updatePaginationPredicate();
+        }
+      });
+    }
+    if (nextPageButton != null) {
+      nextPageButton.setOnAction(e -> {
+        if (currentPage < totalPages) {
+          currentPage++;
+          updatePaginationPredicate();
+        }
+      });
+    }
+    updatePaginationPredicate();
+  }
+
+  private void updatePaginationPredicate() {
+    ObservableList<?> all = filteredStudents.getSource();
+    // First, filter by search
+    List<Student> searchFiltered = all.filtered(s -> (s instanceof Student)
+        && ((((Student) s).getFirstName() != null && ((Student) s).getFirstName().toLowerCase().contains(currentSearch))
+            ||
+            (((Student) s).getLastName() != null && ((Student) s).getLastName().toLowerCase().contains(currentSearch))
+            ||
+            String.valueOf(((Student) s).getAge()).contains(currentSearch) ||
+            String.valueOf(((Student) s).getGrade()).contains(currentSearch)))
+        .stream().map(s -> (Student) s).toList();
+    int totalItems = searchFiltered.size();
+    totalPages = (int) Math.ceil((double) totalItems / pageSize);
+    if (totalPages == 0)
+      totalPages = 1;
+    if (currentPage > totalPages)
+      currentPage = totalPages;
+    if (pageIndicator != null) {
+      pageIndicator.setText("Page " + currentPage + " of " + totalPages);
+    }
+    if (prevPageButton != null)
+      prevPageButton.setDisable(currentPage == 1);
+    if (nextPageButton != null)
+      nextPageButton.setDisable(currentPage == totalPages);
+    int fromIndex = (currentPage - 1) * pageSize;
+    int toIndex = Math.min(fromIndex + pageSize, totalItems);
+    filteredStudents.setPredicate(s -> {
+      int idx = searchFiltered.indexOf(s);
+      return idx >= fromIndex && idx < toIndex;
+    });
   }
 
   private void setupSearchFilter() {
     if (searchField == null)
       return;
     searchField.textProperty().addListener((obs, oldVal, newVal) -> {
-      String filter = newVal.toLowerCase().trim();
-      if (filter.isEmpty()) {
-        filteredStudents.setPredicate(s -> true);
-      } else {
-        filteredStudents
-            .setPredicate(s -> (s.getFirstName() != null && s.getFirstName().toLowerCase().contains(filter)) ||
-                (s.getLastName() != null && s.getLastName().toLowerCase().contains(filter)) ||
-                String.valueOf(s.getAge()).contains(filter) ||
-                String.valueOf(s.getGrade()).contains(filter));
-      }
+      currentSearch = newVal.toLowerCase().trim();
+      currentPage = 1;
+      updatePaginationPredicate();
     });
   }
 
