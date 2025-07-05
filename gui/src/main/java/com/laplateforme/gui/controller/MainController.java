@@ -37,6 +37,17 @@ import java.util.Optional;
 import java.net.http.HttpRequest.BodyPublishers;
 import javafx.stage.Stage;
 import javafx.collections.transformation.FilteredList;
+import com.lowagie.text.Document;
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.Paragraph;
+import com.lowagie.text.pdf.PdfPTable;
+import com.lowagie.text.pdf.PdfWriter;
+import java.io.FileOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import javafx.stage.FileChooser;
 
 public class MainController {
   @FXML
@@ -134,6 +145,9 @@ public class MainController {
     }
     if (studentTable != null) {
       setupStudentTable();
+    }
+    if (exportPdfButton != null) {
+      exportPdfButton.setOnAction(e -> exportToPdf());
     }
   }
 
@@ -546,5 +560,48 @@ public class MainController {
           javafx.application.Platform.runLater(() -> showAlert("Network error: " + e.getMessage()));
           return null;
         });
+  }
+
+  private void exportToPdf() {
+    FileChooser fileChooser = new FileChooser();
+    fileChooser.setTitle("Save PDF Report");
+    fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF Files", "*.pdf"));
+    fileChooser.setInitialFileName("student_report.pdf");
+    File file = fileChooser.showSaveDialog(exportPdfButton.getScene().getWindow());
+    if (file == null)
+      return;
+    try {
+      Document document = new Document();
+      PdfWriter.getInstance(document, new FileOutputStream(file));
+      document.open();
+      document.addTitle("Student Dashboard Report");
+      document.add(new Paragraph("Student Dashboard Report"));
+      document.add(new Paragraph(
+          "Generated: " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))));
+      document.add(new Paragraph(" "));
+      PdfPTable table = new PdfPTable(4);
+      table.setWidthPercentage(100);
+      table.addCell("First Name");
+      table.addCell("Last Name");
+      table.addCell("Age");
+      table.addCell("Grade");
+      ObservableList<?> all = filteredStudents.getSource();
+      String search = currentSearch;
+      all.filtered(s -> (s instanceof Student)
+          && ((((Student) s).getFirstName() != null && ((Student) s).getFirstName().toLowerCase().contains(search)) ||
+              (((Student) s).getLastName() != null && ((Student) s).getLastName().toLowerCase().contains(search)) ||
+              String.valueOf(((Student) s).getAge()).contains(search) ||
+              String.valueOf(((Student) s).getGrade()).contains(search)))
+          .stream().map(s -> (Student) s).forEach(student -> {
+            table.addCell(student.getFirstName());
+            table.addCell(student.getLastName());
+            table.addCell(String.valueOf(student.getAge()));
+            table.addCell(String.valueOf(student.getGrade()));
+          });
+      document.add(table);
+      document.close();
+    } catch (DocumentException | IOException ex) {
+      showAlert("Failed to export PDF: " + ex.getMessage());
+    }
   }
 }
