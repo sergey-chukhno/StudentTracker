@@ -104,7 +104,7 @@ public class AnalyticsController {
       analyticsButton.setDisable(true);
     }
     if (exitButton != null) {
-      exitButton.setOnAction(e -> System.exit(0));
+      exitButton.setOnAction(e -> switchToLogin());
     }
   }
 
@@ -145,6 +145,16 @@ public class AnalyticsController {
         newScene.getRoot().getStyleClass().add("light-mode");
       }
       stage.setScene(newScene);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  private void switchToLogin() {
+    try {
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/laplateforme/gui/fxml/login.fxml"));
+      Parent loginRoot = loader.load();
+      com.laplateforme.gui.MainApp.setRoot(loginRoot);
     } catch (Exception e) {
       e.printStackTrace();
     }

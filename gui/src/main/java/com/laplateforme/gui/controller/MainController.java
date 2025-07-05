@@ -162,7 +162,7 @@ public class MainController {
       analyticsButton.setOnAction(e -> switchToAnalytics());
     }
     if (exitButton != null) {
-      exitButton.setOnAction(e -> System.exit(0));
+      exitButton.setOnAction(e -> switchToLogin());
     }
   }
 
@@ -272,9 +272,11 @@ public class MainController {
       paginationCombo.getItems().setAll(10, 25, 50);
       paginationCombo.setValue(pageSize);
       paginationCombo.valueProperty().addListener((obs, oldVal, newVal) -> {
-        pageSize = newVal;
-        currentPage = 1;
-        updatePaginationPredicate();
+        if (newVal != null) {
+          pageSize = newVal.intValue();
+          currentPage = 1;
+          updatePaginationPredicate();
+        }
       });
     }
     if (prevPageButton != null) {
@@ -649,6 +651,16 @@ public class MainController {
         newScene.getRoot().getStyleClass().add("light-mode");
       }
       stage.setScene(newScene);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  private void switchToLogin() {
+    try {
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/laplateforme/gui/fxml/login.fxml"));
+      Parent loginRoot = loader.load();
+      com.laplateforme.gui.MainApp.setRoot(loginRoot);
     } catch (Exception e) {
       e.printStackTrace();
     }
