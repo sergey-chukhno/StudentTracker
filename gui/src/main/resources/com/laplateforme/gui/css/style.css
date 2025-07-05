@@ -450,3 +450,95 @@
 .dialog-pane .content.label {
   -fx-text-fill: #e0e0e0;
 }
+
+/* --- Analytics Section Styles --- */
+.analytics-title {
+  -fx-font-size: 32px;
+  -fx-font-weight: bold;
+  -fx-text-fill: #1976D2;
+  -fx-padding: 16px 0 8px 0;
+  -fx-alignment: center;
+}
+
+.analytics-label {
+  -fx-font-size: 22px;
+  -fx-font-weight: bold;
+  -fx-text-fill: #1976D2;
+  -fx-padding: 8px 0 8px 0;
+  -fx-alignment: center;
+}
+
+.analytics-card {
+  -fx-background-color: #23272F;
+  /* lighter grey for dark mode */
+  -fx-border-radius: 24px;
+  -fx-background-radius: 24px;
+  -fx-padding: 32px 24px;
+  -fx-effect: dropshadow(gaussian, #1976D2, 4, 0.2, 0, 2);
+}
+
+.chart-title {
+  -fx-font-size: 20px;
+  -fx-font-weight: bold;
+  -fx-text-fill: #1976D2;
+}
+
+.chart-legend {
+  -fx-font-size: 16px;
+  -fx-text-fill: #fff;
+}
+
+.chart-pie-label {
+  -fx-font-size: 16px;
+  -fx-font-weight: bold;
+  -fx-text-fill: #fff;
+}
+
+.axis-label {
+  -fx-font-size: 16px;
+  -fx-font-weight: bold;
+  -fx-text-fill: #1976D2;
+}
+
+.axis-tick-mark {
+  -fx-font-size: 14px;
+  -fx-text-fill: #fff;
+}
+
+.root.light-mode .analytics-title,
+.root.light-mode .analytics-label,
+.root.light-mode .chart-title,
+.root.light-mode .axis-label {
+  -fx-text-fill: #1976D2;
+}
+
+.root.light-mode .analytics-chart {
+  -fx-background-color: #f5f5f5;
+}
+
+.root.light-mode .chart-legend,
+.root.light-mode .chart-pie-label,
+.root.light-mode .axis-tick-mark {
+  -fx-text-fill: #222;
+}
+
+.root.light-mode .analytics-card {
+  -fx-background-color: #f5f5f5;
+}
+
+.custom-legend {
+  -fx-alignment: center;
+  -fx-spacing: 16px;
+  -fx-padding: 12px 0 0 0;
+}
+
+.legend-label {
+  -fx-font-size: 16px;
+  -fx-text-fill: #1976D2;
+  -fx-font-weight: bold;
+  -fx-padding: 0 12px 0 0;
+}
+
+.root.light-mode .legend-label {
+  -fx-text-fill: #1976D2;
+}

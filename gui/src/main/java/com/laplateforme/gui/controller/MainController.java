@@ -49,6 +49,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import javafx.stage.FileChooser;
 import javafx.collections.transformation.SortedList;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 
 public class MainController {
   @FXML
@@ -151,6 +154,15 @@ public class MainController {
     }
     if (exportPdfButton != null) {
       exportPdfButton.setOnAction(e -> exportToPdf());
+    }
+    if (dashboardButton != null) {
+      dashboardButton.setOnAction(e -> switchToDashboard());
+    }
+    if (analyticsButton != null) {
+      analyticsButton.setOnAction(e -> switchToAnalytics());
+    }
+    if (exitButton != null) {
+      exitButton.setOnAction(e -> System.exit(0));
     }
   }
 
@@ -597,6 +609,48 @@ public class MainController {
       document.close();
     } catch (DocumentException | IOException ex) {
       showAlert("Failed to export PDF: " + ex.getMessage());
+    }
+  }
+
+  private void switchToDashboard() {
+    try {
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/laplateforme/gui/fxml/dashboard.fxml"));
+      Parent dashboardRoot = loader.load();
+      com.laplateforme.gui.controller.MainController dashboardController = loader.getController();
+      dashboardController.setUser(username, token);
+      Stage stage = (Stage) dashboardButton.getScene().getWindow();
+      Scene currentScene = dashboardButton.getScene();
+      Scene newScene = new Scene(dashboardRoot);
+      // Add custom stylesheet
+      newScene.getStylesheets().add(getClass().getResource("/com/laplateforme/gui/css/style.css").toExternalForm());
+      // Copy light-mode class if present
+      if (currentScene.getRoot().getStyleClass().contains("light-mode")) {
+        newScene.getRoot().getStyleClass().add("light-mode");
+      }
+      stage.setScene(newScene);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  private void switchToAnalytics() {
+    try {
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/laplateforme/gui/fxml/analytics.fxml"));
+      Parent analyticsRoot = loader.load();
+      com.laplateforme.gui.controller.AnalyticsController analyticsController = loader.getController();
+      analyticsController.setUser(username, token);
+      Stage stage = (Stage) analyticsButton.getScene().getWindow();
+      Scene currentScene = analyticsButton.getScene();
+      Scene newScene = new Scene(analyticsRoot);
+      // Add custom stylesheet
+      newScene.getStylesheets().add(getClass().getResource("/com/laplateforme/gui/css/style.css").toExternalForm());
+      // Copy light-mode class if present
+      if (currentScene.getRoot().getStyleClass().contains("light-mode")) {
+        newScene.getRoot().getStyleClass().add("light-mode");
+      }
+      stage.setScene(newScene);
+    } catch (Exception e) {
+      e.printStackTrace();
     }
   }
 }

@@ -45,6 +45,10 @@ public class MainApp extends Application {
     scene.setRoot(root);
   }
 
+  public static void setRoot(Parent root) {
+    scene.setRoot(root);
+  }
+
   public static Scene getScene() {
     return scene;
   }
