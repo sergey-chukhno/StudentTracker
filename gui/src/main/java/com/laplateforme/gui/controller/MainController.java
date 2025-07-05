@@ -167,7 +167,7 @@ public class MainController {
             deleteBtn.getStyleClass().addAll("student-action-btn", "student-delete-btn");
             updateBtn.setOnAction(e -> {
               Student student = getTableView().getItems().get(getIndex());
-              // TODO: handle update
+              showUpdateStudentDialog(student);
             });
             deleteBtn.setOnAction(e -> {
               Student student = getTableView().getItems().get(getIndex());
@@ -282,6 +282,100 @@ public class MainController {
     dialog.initOwner(stage);
     Optional<Student> result = dialog.showAndWait();
     result.ifPresent(this::addStudentToBackend);
+  }
+
+  private void showUpdateStudentDialog(Student student) {
+    Dialog<Student> dialog = new Dialog<>();
+    dialog.setTitle("Update Student");
+    DialogPane dialogPane = dialog.getDialogPane();
+    dialogPane.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+
+    TextField firstNameField = new TextField(student.getFirstName());
+    TextField lastNameField = new TextField(student.getLastName());
+    TextField ageField = new TextField(String.valueOf(student.getAge()));
+    TextField gradeField = new TextField(String.valueOf(student.getGrade()));
+
+    GridPane grid = new GridPane();
+    grid.setHgap(10);
+    grid.setVgap(10);
+    dialogPane.getStyleClass().add("custom-dialog");
+    Label firstNameLabel = new Label("First Name:");
+    firstNameLabel.getStyleClass().add("custom-dialog-label");
+    Label lastNameLabel = new Label("Last Name:");
+    lastNameLabel.getStyleClass().add("custom-dialog-label");
+    Label ageLabel = new Label("Age:");
+    ageLabel.getStyleClass().add("custom-dialog-label");
+    Label gradeLabel = new Label("Grade:");
+    gradeLabel.getStyleClass().add("custom-dialog-label");
+    grid.add(firstNameLabel, 0, 0);
+    grid.add(firstNameField, 1, 0);
+    grid.add(lastNameLabel, 0, 1);
+    grid.add(lastNameField, 1, 1);
+    grid.add(ageLabel, 0, 2);
+    grid.add(ageField, 1, 2);
+    grid.add(gradeLabel, 0, 3);
+    grid.add(gradeField, 1, 3);
+    dialogPane.setContent(grid);
+    // Inherit root style class and stylesheet for correct theme
+    dialogPane.getStylesheets().add(addStudentButton.getScene().getStylesheets().get(0));
+    dialogPane.getStyleClass().addAll(addStudentButton.getScene().getRoot().getStyleClass());
+    Stage stage = (Stage) addStudentButton.getScene().getWindow();
+    dialog.initOwner(stage);
+
+    dialog.setResultConverter(dialogButton -> {
+      if (dialogButton == ButtonType.OK) {
+        String firstName = firstNameField.getText().trim();
+        String lastName = lastNameField.getText().trim();
+        String ageText = ageField.getText().trim();
+        String gradeText = gradeField.getText().trim();
+        if (firstName.isEmpty() || lastName.isEmpty() || ageText.isEmpty() || gradeText.isEmpty()) {
+          showAlert("All fields are required.");
+          return null;
+        }
+        int age;
+        double grade;
+        try {
+          age = Integer.parseInt(ageText);
+          grade = Double.parseDouble(gradeText);
+        } catch (NumberFormatException e) {
+          showAlert("Age must be an integer and grade must be a number.");
+          return null;
+        }
+        return new Student(student.getId(), firstName, lastName, age, grade);
+      }
+      return null;
+    });
+
+    Optional<Student> result = dialog.showAndWait();
+    result.ifPresent(this::updateStudentInBackend);
+  }
+
+  private void updateStudentInBackend(Student student) {
+    if (token == null || token.isEmpty())
+      return;
+    Gson gson = new Gson();
+    String json = gson.toJson(student);
+    HttpClient client = HttpClient.newHttpClient();
+    HttpRequest request = HttpRequest.newBuilder()
+        .uri(URI.create("http://localhost:8080/students/" + student.getId()))
+        .header("Authorization", "Bearer " + token)
+        .header("Content-Type", "application/json")
+        .PUT(BodyPublishers.ofString(json))
+        .build();
+    client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+        .thenAccept(response -> {
+          if (response.statusCode() == 200) {
+            fetchAndPopulateStudents();
+          } else {
+            javafx.application.Platform
+                .runLater(() -> showAlert("Failed to update student. Status: " + response.statusCode()));
+          }
+        })
+        .exceptionally(e -> {
+          e.printStackTrace();
+          javafx.application.Platform.runLater(() -> showAlert("Network error: " + e.getMessage()));
+          return null;
+        });
   }
 
   private void showAlert(String message) {
