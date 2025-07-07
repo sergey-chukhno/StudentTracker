@@ -1,0 +1,65 @@
+@startuml
+' Backend Layered Architecture Diagram
+!pragma layout smetana
+top to bottom direction
+skinparam rectangle {
+  BackgroundColor #F9F9F9
+  BorderColor Black
+}
+skinparam shadowing false
+skinparam defaultTextAlignment center
+
+' Entry Points
+rectangle "Entry Points" as EntryPoints {
+  [StudentTrackerServer]
+  [StudentTrackerCLI]
+}
+
+' Handler Layer
+rectangle "Handler Layer" as HandlerLayer {
+  [CreateStudentHandler]
+  [DeleteStudentHandler]
+  [GetAllStudentsHandler]
+  [GetStudentByIdHandler]
+  [LoginHandler]
+  [RegisterUserHandler]
+  [UpdateStudentHandler]
+}
+
+' Service Layer
+rectangle "Service Layer" as ServiceLayer {
+  [StudentService]
+  [UserService]
+}
+
+' DAO Layer
+rectangle "DAO Layer" as DAOLayer {
+  [StudentDAO]
+  [UserDAO]
+}
+
+' Model Layer
+rectangle "Model Layer" as ModelLayer {
+  [Student]
+  [User]
+}
+
+' Util Layer
+rectangle "Util Layer" as UtilLayer {
+  [AuthHelper]
+  [JwtUtil]
+  [DatabaseManager]
+  [DatabaseTest]
+}
+
+' Layer relationships
+EntryPoints -down-> HandlerLayer
+HandlerLayer -down-> ServiceLayer
+ServiceLayer -down-> DAOLayer
+DAOLayer -down-> ModelLayer
+UtilLayer ..> HandlerLayer : <<support>>
+UtilLayer ..> ServiceLayer : <<support>>
+UtilLayer ..> DAOLayer : <<support>>
+UtilLayer ..> EntryPoints : <<support>>
+
+@enduml 

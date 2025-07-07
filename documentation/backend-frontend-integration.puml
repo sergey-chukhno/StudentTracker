@@ -1,0 +1,50 @@
+@startuml
+' Backend–Frontend Integration Diagram
+!pragma layout smetana
+top to bottom direction
+skinparam rectangle {
+  BackgroundColor #F9F9F9
+  BorderColor Black
+}
+skinparam shadowing false
+skinparam defaultTextAlignment center
+
+actor User
+
+rectangle "JavaFX Frontend" as Frontend {
+  [MainController]
+  [LoginController]
+  [RegisterController]
+  [AnalyticsController]
+}
+
+rectangle "HTTP/JSON (REST API)" as API {
+  [HTTP Requests]
+  [JSON Data]
+  [Authorization: Bearer <JWT>]
+}
+
+rectangle "Backend" as Backend {
+  [LoginHandler]
+  [RegisterUserHandler]
+  [CreateStudentHandler]
+  [UpdateStudentHandler]
+  [DeleteStudentHandler]
+  [GetAllStudentsHandler]
+  [GetStudentByIdHandler]
+  [AnalyticsHandler]
+  [UserService]
+  [StudentService]
+  [JwtUtil]
+}
+
+User -down-> Frontend : interacts
+Frontend -down-> API : sends requests
+API -down-> Backend : forwards
+Backend -up-> API : responses (JSON, status)
+API -up-> Frontend : responses
+
+Frontend ..> Backend : expects JWT
+Backend ..> JwtUtil : validates JWT
+
+@enduml 
