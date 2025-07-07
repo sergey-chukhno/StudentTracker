@@ -23,3 +23,6 @@ Thumbs.db
 
 # Database credentials
 StudentTracker/src/main/resources/db.properties 
+
+# Ignore Maven test reports
+**/target/surefire-reports/ 
