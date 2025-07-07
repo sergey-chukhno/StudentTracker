@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>La Plateforme - Student Tracker</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <button class="scroll-btn left" aria-label="Previous slide">&#x2039;</button>
+  <button class="scroll-btn right" aria-label="Next slide">&#x203A;</button>
+
+  <!-- Slide 1: Title Page -->
+  <div class="slide slide-title active">
+    <div class="logo-container">
+      <img src="../gui/src/main/resources/com/laplateforme/gui/assets/logo.png" alt="La Plateforme Logo"
+        class="logo animate-logo" />
+    </div>
+    <div class="title-container">
+      <h1 class="main-title animate-title">La Plateforme - Student Tracker</h1>
+    </div>
+    <div class="image-container">
+      <img src="student_tracker_title_page.png" alt="Student Tracker Title" class="main-image animate-image" />
+    </div>
+  </div>
+
+  <!-- Slide 2: Project Overview (French) -->
+  <div class="slide slide-overview">
+    <div class="logo-container">
+      <img src="../gui/src/main/resources/com/laplateforme/gui/assets/logo.png" alt="La Plateforme Logo"
+        class="logo animate-logo" />
+    </div>
+    <div class="overview-title-container">
+      <h1 class="main-title animate-title">Présentation du Projet</h1>
+    </div>
+    <div class="overview-cards-container">
+      <div class="overview-card">
+        <h2>Objectifs du projet</h2>
+        <ul>
+          <li><span class="icon-tick" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <circle cx="10" cy="10" r="10" fill="#27ae60" />
+                <path d="M6 10.5L9 13.5L14 7.5" stroke="white" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg></span>Développer une application Java complète avec un backend (CRUD), un frontend graphique, et
+            des tests automatisés.</li>
+          <li><span class="icon-tick" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <circle cx="10" cy="10" r="10" fill="#27ae60" />
+                <path d="M6 10.5L9 13.5L14 7.5" stroke="white" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg></span>Assurer la sécurité des données et des accès grâce à l’authentification JWT.</li>
+          <li><span class="icon-tick" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <circle cx="10" cy="10" r="10" fill="#27ae60" />
+                <path d="M6 10.5L9 13.5L14 7.5" stroke="white" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg></span>Permettre le déploiement professionnel de l’application sur le cloud.</li>
+        </ul>
+      </div>
+      <div class="overview-card">
+        <h2>Fonctionnalités du projet</h2>
+        <ul>
+          <li><span class="icon-feature" aria-hidden="true">🔐</span>Authentification des utilisateurs (JWT)</li>
+          <li><span class="icon-feature" aria-hidden="true">📝</span>Gestion complète des étudiants (ajout,
+            modification, suppression, consultation)</li>
+          <li><span class="icon-feature" aria-hidden="true">📊</span>Tableau de bord analytique</li>
+          <li><span class="icon-feature" aria-hidden="true">📄</span>Exportation des données en PDF</li>
+          <li><span class="icon-feature" aria-hidden="true">🔎</span>Recherche et tri dynamiques</li>
+          <li><span class="icon-feature" aria-hidden="true">💻</span>Interface graphique moderne (JavaFX)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 3: Vue d'ensemble de l'architecture -->
+  <div class="slide slide-architecture">
+    <div class="logo-container">
+      <img src="../gui/src/main/resources/com/laplateforme/gui/assets/logo.png" alt="La Plateforme Logo"
+        class="logo animate-logo" />
+    </div>
+    <div class="overview-title-container">
+      <h1 class="main-title animate-title">Vue d'ensemble de l'architecture</h1>
+    </div>
+    <div class="architecture-cards-container">
+      <div class="architecture-card clickable-card"
+        onclick="window.open('../documentation/overview-architecture.png', '_blank')">
+        <img src="../documentation/overview-architecture.png" alt="Schéma d'architecture" class="diagram-thumb" />
+        <div class="diagram-title">Cliquez ici pour voir le schéma d'architecture</div>
+      </div>
+      <div class="architecture-card clickable-card"
+        onclick="window.open('../documentation/class-diagram.png', '_blank')">
+        <img src="../documentation/class-diagram.png" alt="Schéma de classes" class="diagram-thumb" />
+        <div class="diagram-title">Cliquez ici pour voir le schéma de classes</div>
+      </div>
+    </div>
+    <div class="architecture-explanation-card">
+      <h2>Architecture modulaire du projet</h2>
+      <p>
+        Le projet Student Tracker adopte une architecture modulaire. Le backend Java est organisé en
+        couches distinctes (DAO, Service, Handler, Model, Util) pour garantir la séparation des responsabilités, la
+        maintenabilité et la testabilité. Le frontend JavaFX offre une interface graphique,
+        connectée au backend via une API REST sécurisée par JWT. Cette structure permet un développement évolutif, des
+        tests automatisés, et un déploiement cloud efficace.
+      </p>
+    </div>
+  </div>
+
+  <!-- Slide 4: Détails du Backend -->
+  <div class="slide slide-backend">
+    <div class="logo-container">
+      <img src="../gui/src/main/resources/com/laplateforme/gui/assets/logo.png" alt="La Plateforme Logo"
+        class="logo animate-logo" />
+    </div>
+    <div class="overview-title-container">
+      <h1 class="main-title animate-title">Détails du Backend</h1>
+    </div>
+    <div class="backend-cards-container">
+      <div class="backend-card clickable-card"
+        onclick="window.open('../documentation/backend-architecture.png', '_blank')">
+        <img src="../documentation/backend-architecture.png" alt="Schéma architecture backend" class="diagram-thumb" />
+        <div class="diagram-title">Cliquez ici pour voir le schéma de l’architecture backend</div>
+      </div>
+      <div class="backend-card backend-explanation-card">
+        <h2>Fonctionnement du backend</h2>
+        <p>
+          Le backend Java est structuré en couches : <b>Handler</b> (gestion des requêtes HTTP), <b>Service</b> (logique
+          métier), <b>DAO</b> (accès aux données), <b>Model</b> (entités), <b>Util</b> (outils). Lorsqu’une requête HTTP
+          arrive (ex : POST <code>/students</code>), elle est traitée par un Handler, qui délègue au Service, qui
+          utilise le DAO pour accéder à la base PostgreSQL. Les réponses sont renvoyées en JSON.<br><br>
+          <b>Sécurité :</b> Authentification JWT sur les endpoints protégés.<br><br>
+          <b>Exemples d’API :</b><br>
+          <code>POST /login</code> — Authentification<br>
+          <code>GET /students</code> — Liste des étudiants<br>
+          <code>POST /students</code> — Ajouter un étudiant<br>
+          <code>POST /register</code> — Inscription utilisateur<br><br>
+          <b>Technologies :</b> Java 17, Maven, PostgreSQL, JWT, HTTP, JSON, JUnit
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 5: Détails du Frontend -->
+  <div class="slide slide-frontend">
+    <div class="logo-container">
+      <img src="../gui/src/main/resources/com/laplateforme/gui/assets/logo.png" alt="La Plateforme Logo"
+        class="logo animate-logo" />
+    </div>
+    <div class="overview-title-container">
+      <h1 class="main-title animate-title">Détails du Frontend</h1>
+    </div>
+    <div class="frontend-cards-container">
+      <div class="frontend-card clickable-card"
+        onclick="window.open('../documentation/frontend-gui-architecture.png', '_blank')">
+        <img src="../documentation/frontend-gui-architecture.png" alt="Schéma architecture frontend"
+          class="diagram-thumb" />
+        <div class="diagram-title">Cliquez ici pour voir le schéma de l’architecture frontend</div>
+      </div>
+      <div class="frontend-card frontend-explanation-card">
+        <h2>Fonctionnement du frontend</h2>
+        <p>
+          Le frontend est développé en <b>JavaFX</b> avec des vues <b>FXML</b> et suit le modèle <b>MVC</b>
+          (Modèle-Vue-Contrôleur). Les contrôleurs gèrent les interactions utilisateur, la logique de navigation, la
+          recherche, le tri, et l’export PDF. L’interface graphique est réactive et intuitive.<br><br>
+          <b>Communication :</b> Le frontend communique avec le backend via l’API REST (HTTP/JSON) et gère
+          l’authentification avec des tokens JWT.<br><br>
+          <b>Fonctionnalités principales :</b> Authentification, gestion des étudiants, recherche et tri dynamiques,
+          export PDF, tableau de bord analytique.<br><br>
+          <b>Technologies :</b> JavaFX, FXML, CSS, HTTP, JSON, JWT
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 6: Intégration Backend & Frontend -->
+  <div class="slide slide-integration">
+    <div class="logo-container">
+      <img src="../gui/src/main/resources/com/laplateforme/gui/assets/logo.png" alt="La Plateforme Logo"
+        class="logo animate-logo" />
+    </div>
+    <div class="overview-title-container">
+      <h1 class="main-title animate-title">Intégration Backend & Frontend</h1>
+    </div>
+    <div class="integration-cards-container">
+      <div class="integration-card clickable-card"
+        onclick="window.open('../documentation/backend-frontend-integration.png', '_blank')">
+        <img src="../documentation/backend-frontend-integration.png" alt="Schéma intégration" class="diagram-thumb" />
+        <div class="diagram-title">Cliquez ici pour voir le schéma d’intégration</div>
+      </div>
+      <div class="integration-card integration-explanation-card">
+        <h2>Fonctionnement de l’intégration</h2>
+        <p>
+          Le frontend JavaFX communique avec le backend via une <b>API REST</b> (HTTP/JSON). Toutes les opérations
+          (authentification, gestion des étudiants, export PDF, analytics) passent par des requêtes HTTP.<br><br>
+          <b>Authentification :</b> Après connexion, le backend fournit un token JWT. Ce token est utilisé par le
+          frontend pour toutes les requêtes protégées.<br><br>
+          <b>Échanges de données :</b> Les données (étudiants, résultats, etc.) sont échangées en JSON. L’export PDF se
+          fait côté frontend à partir des données reçues.<br><br>
+          <b>Gestion des erreurs :</b> Le backend renvoie des statuts HTTP et messages d’erreur, affichés à
+          l’utilisateur par le frontend.<br><br>
+
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 7: Tests & Couverture -->
+  <div class="slide slide-tests">
+    <div class="logo-container">
+      <img src="../gui/src/main/resources/com/laplateforme/gui/assets/logo.png" alt="La Plateforme Logo"
+        class="logo animate-logo" />
+    </div>
+    <div class="overview-title-container">
+      <h1 class="main-title animate-title">Tests & Couverture</h1>
+    </div>
+    <div class="tests-cards-container">
+      <div class="tests-card">
+        <h2>Couverture actuelle</h2>
+        <ul>
+          <li><b>DAO :</b> Tests JUnit sur StudentDAO et UserDAO (CRUD étudiants et utilisateurs)</li>
+          <li><b>Service :</b> Tests JUnit/Mockito sur UserService (logique métier, authentification)</li>
+          <li><b>Util :</b> Tests JUnit sur DatabaseManager (connexion à la base)</li>
+        </ul>
+        <b>Outils :</b> JUnit, Mockito, <span style="color:#256029">curl</span> (pour tester l’API REST)
+      </div>
+      <div class="tests-card tests-improve-card">
+        <h2>Améliorations à apporter</h2>
+        <ul>
+          <li>Ajouter des tests d’intégration bout-en-bout</li>
+          <li>Ajouter des tests pour le frontend (JavaFX)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="tests-example-card">
+      <h2>Exemple de test JUnit</h2>
+      <pre><code>@Test
+public void testAddStudent() {
+    Student s = new Student("Alice", "Dupont", 21, 15.5);
+    studentDAO.addStudent(s);
+    assertNotNull(studentDAO.getStudentByID(s.getId()));
+}</code></pre>
+    </div>
+  </div>
+
+  <!-- Slide 8: Déploiement -->
+  <div class="slide slide-deployment">
+    <div class="logo-container">
+      <img src="../gui/src/main/resources/com/laplateforme/gui/assets/logo.png" alt="La Plateforme Logo"
+        class="logo animate-logo" />
+    </div>
+    <div class="overview-title-container">
+      <h1 class="main-title animate-title">Déploiement</h1>
+    </div>
+    <div class="deployment-cards-container">
+      <div class="deployment-card">
+        <h2>Étapes de déploiement</h2>
+        <ul>
+          <li>Préparer le code backend pour le cloud (Render.com)</li>
+          <li>Configurer la base PostgreSQL sur Render</li>
+          <li>Définir les variables d’environnement (JDBC, JWT)</li>
+          <li>Configurer les commandes de build et de démarrage (Maven, JAR)</li>
+          <li>Lancer le déploiement et tester l’API en ligne (curl)</li>
+        </ul>
+      </div>
+      <div class="deployment-card deployment-tips-card">
+        <h2>Bonnes pratiques pour le déploiement</h2>
+        <ul>
+          <li>Utiliser des variables d’environnement pour la sécurité</li>
+          <li>Garder la version locale du backend</li>
+          <li>Tester chaque endpoint après déploiement</li>
+          <li>Surveiller les logs et l’état du service sur Render</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 9: Démo & Améliorations -->
+  <div class="slide slide-demo">
+    <div class="logo-container">
+      <img src="../gui/src/main/resources/com/laplateforme/gui/assets/logo.png" alt="La Plateforme Logo"
+        class="logo animate-logo" />
+    </div>
+    <div class="overview-title-container">
+      <h1 class="main-title animate-title">Démo & Améliorations</h1>
+    </div>
+    <div class="demo-cards-container">
+      <div class="demo-card clickable-card" onclick="window.open('demo.png', '_blank')">
+        <h2>Démo</h2>
+        <div class="demo-image-container">
+          <img src="demo.png" alt="Démo de l'application" class="demo-image-thumb" />
+        </div>
+      </div>
+      <div class="demo-card demo-improve-card">
+        <h2>Améliorations à envisager</h2>
+        <ul>
+          <li>Élargir la couverture des tests et introduire des tests E2E</li>
+          <li>Possibilité de switcher entre backend local et cloud</li>
+          <li>Créer un pipeline CI/CD pour automatiser le déploiement et les tests</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
