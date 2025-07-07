@@ -1,0 +1,104 @@
+@startuml
+' StudentTracker Class Diagram (Classes Only)
+!pragma layout smetana
+top to bottom direction
+skinparam classAttributeIconSize 0
+skinparam classFontSize 10
+skinparam classAttributeFontSize 9
+skinparam classOperationFontSize 9
+hide empty members
+
+' Backend classes
+class StudentTrackerServer
+class StudentTrackerCLI
+class StudentDAO
+class UserDAO
+class StudentService
+class UserService
+class CreateStudentHandler
+class DeleteStudentHandler
+class GetAllStudentsHandler
+class GetStudentByIdHandler
+class LoginHandler {
+  +handle(HttpExchange)
+}
+class LoginRequest
+class RegisterUserHandler {
+  +handle(HttpExchange)
+}
+class RegisterRequest
+class UpdateStudentHandler
+class Student {
+  -int id
+  -String firstName
+  -String lastName
+  -int age
+  -double grade
+  +getId()
+  +getFirstName()
+  +getLastName()
+  +getAge()
+  +getGrade()
+}
+class User {
+  -int id
+  -String username
+  -String passwordHash
+  +getId()
+  +getUsername()
+  +getPasswordHash()
+}
+class AuthHelper
+class DatabaseManager
+class DatabaseTest
+class JwtUtil
+
+' GUI classes
+class MainApp
+class GuiStudent {
+  -int id
+  -String firstName
+  -String lastName
+  -int age
+  -double grade
+  +getId()
+  +getFirstName()
+  +getLastName()
+  +getAge()
+  +getGrade()
+}
+class MainController
+class LoginController
+class LoginResponse
+class RegisterController
+class AnalyticsController
+
+' Relationships (examples, not exhaustive)
+StudentDAO --> Student
+UserDAO --> User
+StudentService --> StudentDAO
+UserService --> UserDAO
+CreateStudentHandler --> StudentService
+DeleteStudentHandler --> StudentService
+GetAllStudentsHandler --> StudentService
+GetStudentByIdHandler --> StudentService
+UpdateStudentHandler --> StudentService
+LoginHandler --> UserService
+RegisterUserHandler --> UserService
+AuthHelper --> JwtUtil
+DatabaseManager --> DatabaseTest
+
+MainController --> GuiStudent
+MainController --> MainApp
+LoginController --> MainApp
+RegisterController --> MainApp
+AnalyticsController --> MainApp
+
+' Inner class relationships
+LoginHandler *-- LoginRequest
+LoginController *-- LoginRequest
+LoginController *-- LoginResponse
+RegisterUserHandler *-- RegisterRequest
+RegisterController *-- RegisterRequest
+
+@enduml 

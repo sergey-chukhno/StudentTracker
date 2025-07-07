@@ -3,7 +3,7 @@
 
 set -e
 
-cd StudentTracker
+cd backend
 
 # Build the classpath and save to cp.txt
 mvn dependency:build-classpath -Dmdep.outputFile=cp.txt

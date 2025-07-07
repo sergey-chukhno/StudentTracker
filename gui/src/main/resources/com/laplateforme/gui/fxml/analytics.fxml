@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.shape.Rectangle?>
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.laplateforme.gui.controller.AnalyticsController">
+  <top>
+    <HBox alignment="CENTER_LEFT" spacing="32.0" styleClass="header main-header">
+      <padding>
+        <Insets top="32" right="32" bottom="32" left="32" />
+      </padding>
+      <ImageView fx:id="logoImage" fitHeight="800.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true" styleClass="main-logo" />
+      <Label fx:id="welcomeLabel" text="Welcome," styleClass="main-welcome" />
+      <Region HBox.hgrow="ALWAYS" />
+      <Button fx:id="themeToggle" styleClass="theme-toggle" />
+    </HBox>
+  </top>
+  <left>
+    <VBox alignment="CENTER" spacing="24.0" styleClass="sidebar main-sidebar" prefWidth="100">
+      <Region minHeight="40" VBox.vgrow="ALWAYS" />
+      <Button fx:id="dashboardButton" styleClass="sidebar-btn main-sidebar-btn">
+        <tooltip>
+          <Tooltip text="Dashboard" />
+        </tooltip>
+        <graphic>
+          <ImageView fx:id="dashboardIcon" fitHeight="32" fitWidth="32" preserveRatio="true" pickOnBounds="true" styleClass="sidebar-icon"/>
+        </graphic>
+      </Button>
+      <Button fx:id="analyticsButton" styleClass="sidebar-btn main-sidebar-btn">
+        <tooltip>
+          <Tooltip text="Analytics" />
+        </tooltip>
+        <graphic>
+          <ImageView fx:id="analyticsIcon" fitHeight="32" fitWidth="32" preserveRatio="true" pickOnBounds="true" styleClass="sidebar-icon"/>
+        </graphic>
+      </Button>
+      <Region minHeight="40" VBox.vgrow="ALWAYS" />
+      <Button fx:id="exitButton" styleClass="sidebar-btn exit-btn main-sidebar-btn">
+        <tooltip>
+          <Tooltip text="Exit" />
+        </tooltip>
+        <graphic>
+          <ImageView fx:id="exitIcon" fitHeight="32" fitWidth="32" preserveRatio="true" pickOnBounds="true" styleClass="sidebar-icon"/>
+        </graphic>
+      </Button>
+    </VBox>
+  </left>
+  <center>
+    <VBox alignment="TOP_CENTER" spacing="16.0" styleClass="main-content">
+      <padding>
+        <Insets top="120" right="32" bottom="32" left="64" />
+      </padding>
+      <StackPane fx:id="mainFrame" styleClass="main-frame" prefHeight="700.0">
+        <VBox alignment="TOP_CENTER" spacing="32.0" maxWidth="1200">
+          <HBox alignment="CENTER" spacing="32.0">
+            <VBox alignment="CENTER" spacing="8.0" styleClass="analytics-card" prefWidth="1040" prefHeight="120">
+              <Label fx:id="totalStudentsLabel" styleClass="analytics-label" text="Total students: 0" />
+              <Label fx:id="averageGradeLabel" styleClass="analytics-label" text="Average grade: 0.0" />
+            </VBox>
+          </HBox>
+          <HBox alignment="CENTER" spacing="32.0">
+            <VBox alignment="TOP_CENTER" spacing="16.0" styleClass="analytics-card" prefWidth="500" prefHeight="500">
+              <PieChart fx:id="gradePieChart" styleClass="analytics-chart" prefWidth="400" prefHeight="400" />
+            </VBox>
+            <VBox alignment="TOP_CENTER" spacing="16.0" styleClass="analytics-card" prefWidth="500" prefHeight="500">
+              <BarChart fx:id="gradeBarChart" styleClass="analytics-chart" prefWidth="400" prefHeight="400">
+                <xAxis>
+                  <CategoryAxis fx:id="barCategoryAxis" label="Category" styleClass="axis-label" />
+                </xAxis>
+                <yAxis>
+                  <NumberAxis fx:id="barNumberAxis" label="Number of Students" styleClass="axis-label" />
+                </yAxis>
+              </BarChart>
+              <HBox alignment="CENTER" spacing="16.0" styleClass="custom-legend" style="-fx-padding: 16 0 0 0;">
+                <Rectangle width="18" height="18" style="-fx-fill: #1976D2; -fx-stroke: #1976D2; -fx-arc-width: 4; -fx-arc-height: 4;" />
+                <Label text="> Avg" styleClass="legend-label" />
+                <Rectangle width="18" height="18" style="-fx-fill: #FFA726; -fx-stroke: #FFA726; -fx-arc-width: 4; -fx-arc-height: 4;" />
+                <Label text="= Avg" styleClass="legend-label" />
+                <Rectangle width="18" height="18" style="-fx-fill: #43A047; -fx-stroke: #43A047; -fx-arc-width: 4; -fx-arc-height: 4;" />
+                <Label text="&lt; Avg" styleClass="legend-label" />
+              </HBox>
+            </VBox>
+          </HBox>
+        </VBox>
+      </StackPane>
+    </VBox>
+  </center>
+</BorderPane> 

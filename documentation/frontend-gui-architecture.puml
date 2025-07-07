@@ -1,0 +1,44 @@
+@startuml
+' Frontend GUI Architecture Diagram
+!pragma layout smetana
+top to bottom direction
+skinparam rectangle {
+  BackgroundColor #F9F9F9
+  BorderColor Black
+}
+skinparam shadowing false
+skinparam defaultTextAlignment center
+
+' Main Application
+rectangle "Main Application" as MainAppBlock {
+  [MainApp]
+}
+
+' Views (FXML)
+rectangle "Views (FXML)" as ViewsBlock {
+  [main.fxml]
+  [login.fxml]
+  [register.fxml]
+  [analytics.fxml]
+}
+
+' Controllers
+rectangle "Controllers" as ControllersBlock {
+  [MainController]
+  [LoginController]
+  [RegisterController]
+  [AnalyticsController]
+}
+
+' Model
+rectangle "Model" as ModelBlock {
+  [Student]
+}
+
+' Relationships
+MainAppBlock -down-> ViewsBlock : loads
+ViewsBlock -down-> ControllersBlock : fx:controller
+ControllersBlock -down-> ModelBlock : updates/binds
+ControllersBlock ..> MainAppBlock : scene mgmt
+
+@enduml 
