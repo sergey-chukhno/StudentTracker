@@ -6,16 +6,33 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.io.IOException;
+import javafx.scene.layout.StackPane;
+import javafx.scene.Node;
+import com.laplateforme.gui.controller.NotificationController;
 
 public class MainApp extends Application {
   private static Scene scene;
   private static boolean darkMode = true;
+  private static StackPane rootStackPane;
+  private static Node notificationNode;
+  private static Node contentNode;
 
   @Override
   public void start(Stage stage) throws Exception {
+    // Load notification node
+    FXMLLoader notifLoader = new FXMLLoader(getClass().getResource("/com/laplateforme/gui/fxml/notification.fxml"));
+    notificationNode = notifLoader.load();
+    Object notifController = notifLoader.getController();
+    System.out.println("Loaded notification controller: " + notifController);
+    // Explicitly set NotificationController singleton
+    NotificationController.setInstance((NotificationController) notifController);
+    System.out.println("NotificationController.getInstance() after set: " + NotificationController.getInstance());
+    // Load initial content (login)
     FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/laplateforme/gui/fxml/login.fxml"));
-    Parent root = loader.load();
-    scene = new Scene(root);
+    contentNode = loader.load();
+    // Create persistent root StackPane
+    rootStackPane = new StackPane(contentNode, notificationNode);
+    scene = new Scene(rootStackPane);
     setUserAgentStylesheet(null);
     applyTheme();
     stage.setTitle("Student Tracker - Login");
@@ -41,12 +58,13 @@ public class MainApp extends Application {
 
   public static void setRoot(String fxml) throws IOException {
     FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/com/laplateforme/gui/fxml/" + fxml));
-    Parent root = loader.load();
-    scene.setRoot(root);
+    contentNode = loader.load();
+    rootStackPane.getChildren().set(0, contentNode); // Always keep notificationNode on top
   }
 
   public static void setRoot(Parent root) {
-    scene.setRoot(root);
+    contentNode = root;
+    rootStackPane.getChildren().set(0, contentNode);
   }
 
   public static Scene getScene() {

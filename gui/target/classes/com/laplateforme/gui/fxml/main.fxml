@@ -4,78 +4,82 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.collections.FXCollections?>
-<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.laplateforme.gui.controller.MainController">
-  <top>
-    <HBox alignment="CENTER_LEFT" spacing="32.0" styleClass="header main-header">
-      <padding>
-        <Insets top="32" right="32" bottom="32" left="32" />
-      </padding>
-      <ImageView fx:id="logoImage" fitHeight="800.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true" styleClass="main-logo" />
-      <Label fx:id="welcomeLabel" text="Welcome," styleClass="main-welcome" />
-      <Region HBox.hgrow="ALWAYS" />
-      <Button fx:id="themeToggle" styleClass="theme-toggle" />
-    </HBox>
-  </top>
-  <left>
-    <VBox alignment="CENTER" spacing="24.0" styleClass="sidebar main-sidebar" prefWidth="100">
-      <Region minHeight="40" VBox.vgrow="ALWAYS" />
-      <Button fx:id="dashboardButton" styleClass="sidebar-btn main-sidebar-btn">
-        <tooltip>
-          <Tooltip text="Dashboard" />
-        </tooltip>
-        <graphic>
-          <ImageView fx:id="dashboardIcon" fitHeight="32" fitWidth="32" preserveRatio="true" pickOnBounds="true" styleClass="sidebar-icon"/>
-        </graphic>
-      </Button>
-      <Button fx:id="analyticsButton" styleClass="sidebar-btn main-sidebar-btn">
-        <tooltip>
-          <Tooltip text="Analytics" />
-        </tooltip>
-        <graphic>
-          <ImageView fx:id="analyticsIcon" fitHeight="32" fitWidth="32" preserveRatio="true" pickOnBounds="true" styleClass="sidebar-icon"/>
-        </graphic>
-      </Button>
-      <Region minHeight="40" VBox.vgrow="ALWAYS" />
-      <Button fx:id="exitButton" styleClass="sidebar-btn exit-btn main-sidebar-btn">
-        <tooltip>
-          <Tooltip text="Exit" />
-        </tooltip>
-        <graphic>
-          <ImageView fx:id="exitIcon" fitHeight="32" fitWidth="32" preserveRatio="true" pickOnBounds="true" styleClass="sidebar-icon"/>
-        </graphic>
-      </Button>
-    </VBox>
-  </left>
-  <center>
-    <VBox alignment="TOP_CENTER" spacing="16.0" styleClass="main-content">
-      <padding>
-        <Insets top="120" right="32" bottom="32" left="64" />
-      </padding>
-      <HBox alignment="CENTER_LEFT" spacing="16.0">
-        <TextField fx:id="searchField" promptText="Search students..." maxWidth="320.0" />
-        <Label text="Show:" styleClass="show-label" />
-        <ComboBox fx:id="paginationCombo" prefWidth="80.0" />
-        <Button fx:id="exportPdfButton" text="Export to PDF" />
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.fxml.FXMLLoader?>
+<StackPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.laplateforme.gui.controller.MainController">
+  <BorderPane fx:id="mainBorderPane">
+    <top>
+      <HBox alignment="CENTER_LEFT" spacing="32.0" styleClass="header main-header">
+        <padding>
+          <Insets top="32" right="32" bottom="32" left="32" />
+        </padding>
+        <ImageView fx:id="logoImage" fitHeight="800.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true" styleClass="main-logo" />
+        <Label fx:id="welcomeLabel" text="Welcome," styleClass="main-welcome" />
         <Region HBox.hgrow="ALWAYS" />
-        <Button fx:id="addStudentButton" text="Add Student" styleClass="student-add-btn" />
+        <Button fx:id="themeToggle" styleClass="theme-toggle" />
       </HBox>
-      <Separator />
-      <StackPane fx:id="mainFrame" styleClass="main-frame" prefHeight="700.0">
-        <TableView fx:id="studentTable" styleClass="student-table" prefHeight="700.0">
-          <columns>
-            <TableColumn fx:id="firstNameColumn" text="First Name" prefWidth="320" minWidth="240" maxWidth="600" />
-            <TableColumn fx:id="lastNameColumn" text="Last Name" prefWidth="320" minWidth="240" maxWidth="600" />
-            <TableColumn fx:id="ageColumn" text="Age" prefWidth="160" minWidth="100" maxWidth="240" />
-            <TableColumn fx:id="gradeColumn" text="Grade" prefWidth="160" minWidth="100" maxWidth="240" />
-            <TableColumn fx:id="actionsColumn" text="Actions" prefWidth="180" minWidth="140" maxWidth="240" />
-          </columns>
-        </TableView>
-      </StackPane>
-      <HBox alignment="CENTER" spacing="16.0" styleClass="pagination-controls">
-        <Button fx:id="prevPageButton" text="Previous" />
-        <Label fx:id="pageIndicator" text="Page 1 of 1" />
-        <Button fx:id="nextPageButton" text="Next" />
-      </HBox>
-    </VBox>
-  </center>
-</BorderPane> 
+    </top>
+    <left>
+      <VBox alignment="CENTER" spacing="24.0" styleClass="sidebar main-sidebar" prefWidth="100">
+        <Region minHeight="40" VBox.vgrow="ALWAYS" />
+        <Button fx:id="dashboardButton" styleClass="sidebar-btn main-sidebar-btn">
+          <tooltip>
+            <Tooltip text="Dashboard" />
+          </tooltip>
+          <graphic>
+            <ImageView fx:id="dashboardIcon" fitHeight="32" fitWidth="32" preserveRatio="true" pickOnBounds="true" styleClass="sidebar-icon"/>
+          </graphic>
+        </Button>
+        <Button fx:id="analyticsButton" styleClass="sidebar-btn main-sidebar-btn">
+          <tooltip>
+            <Tooltip text="Analytics" />
+          </tooltip>
+          <graphic>
+            <ImageView fx:id="analyticsIcon" fitHeight="32" fitWidth="32" preserveRatio="true" pickOnBounds="true" styleClass="sidebar-icon"/>
+          </graphic>
+        </Button>
+        <Region minHeight="40" VBox.vgrow="ALWAYS" />
+        <Button fx:id="exitButton" styleClass="sidebar-btn exit-btn main-sidebar-btn">
+          <tooltip>
+            <Tooltip text="Exit" />
+          </tooltip>
+          <graphic>
+            <ImageView fx:id="exitIcon" fitHeight="32" fitWidth="32" preserveRatio="true" pickOnBounds="true" styleClass="sidebar-icon"/>
+          </graphic>
+        </Button>
+      </VBox>
+    </left>
+    <center>
+      <VBox alignment="TOP_CENTER" spacing="16.0" styleClass="main-content">
+        <padding>
+          <Insets top="120" right="32" bottom="32" left="64" />
+        </padding>
+        <HBox alignment="CENTER_LEFT" spacing="16.0">
+          <TextField fx:id="searchField" promptText="Search students..." maxWidth="320.0" />
+          <Label text="Show:" styleClass="show-label" />
+          <ComboBox fx:id="paginationCombo" prefWidth="80.0" />
+          <Button fx:id="exportPdfButton" text="Export to PDF" />
+          <Region HBox.hgrow="ALWAYS" />
+          <Button fx:id="addStudentButton" text="Add Student" styleClass="student-add-btn" />
+        </HBox>
+        <Separator />
+        <StackPane fx:id="mainFrame" styleClass="main-frame" prefHeight="700.0">
+          <TableView fx:id="studentTable" styleClass="student-table" prefHeight="700.0">
+            <columns>
+              <TableColumn fx:id="firstNameColumn" text="First Name" prefWidth="320" minWidth="240" maxWidth="600" />
+              <TableColumn fx:id="lastNameColumn" text="Last Name" prefWidth="320" minWidth="240" maxWidth="600" />
+              <TableColumn fx:id="ageColumn" text="Age" prefWidth="160" minWidth="100" maxWidth="240" />
+              <TableColumn fx:id="gradeColumn" text="Grade" prefWidth="160" minWidth="100" maxWidth="240" />
+              <TableColumn fx:id="actionsColumn" text="Actions" prefWidth="180" minWidth="140" maxWidth="240" />
+            </columns>
+          </TableView>
+        </StackPane>
+        <HBox alignment="CENTER" spacing="16.0" styleClass="pagination-controls">
+          <Button fx:id="prevPageButton" text="Previous" />
+          <Label fx:id="pageIndicator" text="Page 1 of 1" />
+          <Button fx:id="nextPageButton" text="Next" />
+        </HBox>
+      </VBox>
+    </center>
+  </BorderPane>
+</StackPane> 

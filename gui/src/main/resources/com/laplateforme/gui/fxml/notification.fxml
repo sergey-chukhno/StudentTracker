@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Label?>
+
+<HBox fx:id="notificationBox"
+  xmlns:fx="http://javafx.com/fxml" fx:controller="com.laplateforme.gui.controller.NotificationController" styleClass="notification" visible="false" spacing="10" alignment="CENTER" prefWidth="400" maxWidth="400">
+  <Label fx:id="notificationLabel" text="Notification message" />
+</HBox> 

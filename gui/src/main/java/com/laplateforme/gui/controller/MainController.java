@@ -52,6 +52,9 @@ import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import com.laplateforme.gui.controller.NotificationController;
+import com.laplateforme.gui.controller.NotificationService;
+import javafx.scene.Node;
 
 public class MainController {
   @FXML
@@ -164,6 +167,18 @@ public class MainController {
     if (exitButton != null) {
       exitButton.setOnAction(e -> switchToLogin());
     }
+    mainFrame.sceneProperty().addListener((obs, oldScene, newScene) -> {
+      if (newScene != null) {
+        try {
+          FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/laplateforme/gui/fxml/notification.fxml"));
+          Node notificationNode = loader.load();
+          StackPane root = (StackPane) newScene.getRoot();
+          root.getChildren().add(notificationNode);
+        } catch (Exception e) {
+          e.printStackTrace();
+        }
+      }
+    });
   }
 
   private void handleThemeToggle() {
@@ -485,6 +500,7 @@ public class MainController {
         .thenAccept(response -> {
           if (response.statusCode() == 200) {
             fetchAndPopulateStudents();
+            NotificationService.show("Student updated successfully!");
           } else {
             javafx.application.Platform
                 .runLater(() -> showAlert("Failed to update student. Status: " + response.statusCode()));
@@ -522,6 +538,7 @@ public class MainController {
           if (response.statusCode() == 201) {
             // Refresh table
             fetchAndPopulateStudents();
+            NotificationService.show("Student added successfully!");
           } else {
             javafx.application.Platform
                 .runLater(() -> showAlert("Failed to add student. Status: " + response.statusCode()));
@@ -565,6 +582,7 @@ public class MainController {
         .thenAccept(response -> {
           if (response.statusCode() == 204) {
             fetchAndPopulateStudents();
+            NotificationService.show("Student deleted successfully!");
           } else {
             javafx.application.Platform
                 .runLater(() -> showAlert("Failed to delete student. Status: " + response.statusCode()));
