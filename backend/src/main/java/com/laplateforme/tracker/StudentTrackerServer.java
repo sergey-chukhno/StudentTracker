@@ -13,6 +13,7 @@ import com.laplateforme.tracker.handler.UpdateStudentHandler;
 import com.laplateforme.tracker.handler.DeleteStudentHandler;
 import com.laplateforme.tracker.handler.RegisterUserHandler;
 import com.laplateforme.tracker.handler.LoginHandler;
+import com.laplateforme.tracker.handler.ImportCsvHandler;
 import com.laplateforme.tracker.util.DatabaseManager;
 
 public class StudentTrackerServer {
@@ -40,6 +41,7 @@ public class StudentTrackerServer {
     });
     server.createContext("/register", new RegisterUserHandler());
     server.createContext("/login", new LoginHandler());
+    server.createContext("/students/import-csv", new ImportCsvHandler());
     server.setExecutor(null); // creates a default executor
     System.out.println("[INFO] HTTP server started on port " + port);
     server.start();

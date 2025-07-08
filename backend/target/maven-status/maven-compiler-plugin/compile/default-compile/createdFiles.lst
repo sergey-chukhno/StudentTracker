@@ -11,6 +11,7 @@ com/laplateforme/tracker/model/User.class
 com/laplateforme/tracker/handler/DeleteStudentHandler.class
 com/laplateforme/tracker/util/JwtUtil.class
 com/laplateforme/tracker/handler/LoginHandler$LoginRequest.class
+com/laplateforme/tracker/handler/ImportCsvHandler.class
 com/laplateforme/tracker/StudentTrackerServer.class
 com/laplateforme/tracker/handler/RegisterUserHandler.class
 com/laplateforme/tracker/StudentTrackerCLI.class

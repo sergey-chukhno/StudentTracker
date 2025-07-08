@@ -117,6 +117,8 @@ public class MainController {
   private Button nextPageButton;
   @FXML
   private Label pageIndicator;
+  @FXML
+  private Button importCsvButton;
 
   private int currentPage = 1;
   private int pageSize = 10;
@@ -166,6 +168,9 @@ public class MainController {
     }
     if (exitButton != null) {
       exitButton.setOnAction(e -> switchToLogin());
+    }
+    if (importCsvButton != null) {
+      importCsvButton.setOnAction(e -> handleImportCsv());
     }
     mainFrame.sceneProperty().addListener((obs, oldScene, newScene) -> {
       if (newScene != null) {
@@ -629,6 +634,61 @@ public class MainController {
       document.close();
     } catch (DocumentException | IOException ex) {
       showAlert("Failed to export PDF: " + ex.getMessage());
+    }
+  }
+
+  private void handleImportCsv() {
+    javafx.stage.FileChooser fileChooser = new javafx.stage.FileChooser();
+    fileChooser.setTitle("Import Students from CSV");
+    fileChooser.getExtensionFilters().add(
+        new javafx.stage.FileChooser.ExtensionFilter("CSV Files", "*.csv"));
+    java.io.File file = fileChooser.showOpenDialog(importCsvButton.getScene().getWindow());
+    if (file != null) {
+      System.out.println("Selected CSV file: " + file.getAbsolutePath());
+      NotificationService.show("Uploading " + file.getName() + "...");
+      // Upload file to backend
+      new Thread(() -> {
+        try {
+          String boundary = "----WebKitFormBoundary" + System.currentTimeMillis();
+          java.net.http.HttpClient client = java.net.http.HttpClient.newHttpClient();
+          java.nio.file.Path filePath = file.toPath();
+          String fileName = file.getName();
+          String mimeType = "text/csv";
+          // Build multipart body
+          String CRLF = "\r\n";
+          StringBuilder sb = new StringBuilder();
+          sb.append("--").append(boundary).append(CRLF);
+          sb.append("Content-Disposition: form-data; name=\"file\"; filename=\"").append(fileName).append("\"")
+              .append(CRLF);
+          sb.append("Content-Type: ").append(mimeType).append(CRLF).append(CRLF);
+          byte[] fileBytes = java.nio.file.Files.readAllBytes(filePath);
+          byte[] preamble = sb.toString().getBytes();
+          byte[] epilogue = (CRLF + "--" + boundary + "--" + CRLF).getBytes();
+          byte[] multipartBody = new byte[preamble.length + fileBytes.length + epilogue.length];
+          System.arraycopy(preamble, 0, multipartBody, 0, preamble.length);
+          System.arraycopy(fileBytes, 0, multipartBody, preamble.length, fileBytes.length);
+          System.arraycopy(epilogue, 0, multipartBody, preamble.length + fileBytes.length, epilogue.length);
+          java.net.http.HttpRequest request = java.net.http.HttpRequest.newBuilder()
+              .uri(java.net.URI.create("http://localhost:8080/students/import-csv"))
+              .header("Content-Type", "multipart/form-data; boundary=" + boundary)
+              .POST(java.net.http.HttpRequest.BodyPublishers.ofByteArray(multipartBody))
+              .build();
+          java.net.http.HttpResponse<String> response = client.send(request,
+              java.net.http.HttpResponse.BodyHandlers.ofString());
+          if (response.statusCode() == 200) {
+            NotificationService.show("CSV import successful!");
+            // Refresh students list
+            javafx.application.Platform.runLater(this::fetchAndPopulateStudents);
+          } else {
+            NotificationService.show("CSV import failed: " + response.body());
+          }
+        } catch (Exception ex) {
+          ex.printStackTrace();
+          NotificationService.show("CSV import error: " + ex.getMessage());
+        }
+      }).start();
+    } else {
+      NotificationService.show("CSV import cancelled.");
     }
   }
 

@@ -1,0 +1,69 @@
+@startuml
+' Schéma d'architecture du projet Student Tracker
+!pragma layout smetana
+top to bottom direction
+skinparam rectangle {
+  BackgroundColor #F9F9F9
+  BorderColor Black
+}
+skinparam shadowing false
+skinparam defaultTextAlignment center
+
+rectangle "Frontend JavaFX" as Frontend {
+  [FXML]
+  [Contrôleurs]
+  [Modèle (étudiant)]
+  [Recherche, tri, export PDF]
+}
+
+rectangle "API REST (JSON, JWT)" as API {
+  [Sécurité JWT]
+  [Communication HTTP]
+}
+
+rectangle "Backend Java" as Backend {
+  rectangle "Handler" as Handler {
+    [CreateStudentHandler]
+    [DeleteStudentHandler]
+    [GetAllStudentsHandler]
+    [GetStudentByIdHandler]
+    [LoginHandler]
+    [RegisterUserHandler]
+    [UpdateStudentHandler]
+  }
+  rectangle "Service" as Service {
+    [StudentService]
+    [UserService]
+  }
+  rectangle "DAO" as DAO {
+    [StudentDAO]
+    [UserDAO]
+  }
+  rectangle "Model" as Model {
+    [Étudiant]
+    [Utilisateur]
+  }
+  rectangle "Util" as Util {
+    [AuthHelper]
+    [JwtUtil]
+    [DatabaseManager]
+  }
+}
+
+rectangle "Base de données PostgreSQL" as DB
+rectangle "Déploiement Cloud (Render.com)" as Cloud
+
+Frontend -down-> API : "Requêtes HTTP/JSON"
+API -down-> Handler : "Appels REST"
+Handler -down-> Service
+Service -down-> DAO
+DAO -down-> Model
+Handler ..> Util : "Outils"
+Service ..> Util
+DAO ..> Util
+API ..> Util : "JWT"
+Backend -down-> DB : "JDBC"
+Backend -right-> Cloud : "Déploiement"
+Frontend -right-> Cloud : "Déploiement"
+
+@enduml 

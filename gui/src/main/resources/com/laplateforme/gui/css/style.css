@@ -609,3 +609,23 @@
   -fx-background-color: #fff;
   -fx-text-fill: #222;
 }
+
+.import-csv-btn {
+  -fx-background-color: #1976D2;
+  -fx-text-fill: #fff;
+  -fx-font-size: 16px;
+  -fx-font-weight: bold;
+  -fx-background-radius: 8px;
+  -fx-border-radius: 8px;
+  -fx-padding: 10px 24px;
+  -fx-cursor: hand;
+  -fx-effect: dropshadow(gaussian, #2196F3, 2, 0.2, 0, 1);
+  -fx-transition: background-color 0.2s, scale 0.2s;
+  -fx-margin: 0 0 0 8px;
+}
+
+.import-csv-btn:hover {
+  -fx-background-color: #2196F3;
+  -fx-scale-x: 1.03;
+  -fx-scale-y: 1.03;
+}
