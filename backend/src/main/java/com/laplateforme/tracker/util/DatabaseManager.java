@@ -10,6 +10,26 @@ public class DatabaseManager {
 
   public static Connection getConnection() {
     try {
+      // Try environment variables first
+      String jdbcUrl = System.getenv("DB_URL");
+      String user = System.getenv("DB_USER");
+      String password = System.getenv("DB_PASSWORD");
+
+      if (jdbcUrl != null && user != null && password != null) {
+        System.out.println("[DEBUG] Loaded JDBC URL from env: " + jdbcUrl);
+        System.out.println("[DEBUG] Loaded DB user from env: " + user);
+        Connection conn = DriverManager.getConnection(jdbcUrl, user, password);
+        // Print DB name after connection
+        try {
+          String dbName = conn.getCatalog();
+          System.out.println("[INFO] Connected to database: " + dbName);
+        } catch (Exception e) {
+          System.out.println("[WARN] Could not retrieve DB name: " + e.getMessage());
+        }
+        return conn;
+      }
+
+      // Fallback to db.properties
       System.out.println("[DEBUG] Attempting to load db.properties from classpath...");
       InputStream input = DatabaseManager.class.getResourceAsStream("/db.properties");
       if (input == null) {
@@ -18,9 +38,9 @@ public class DatabaseManager {
       }
       Properties props = new Properties();
       props.load(input);
-      String jdbcUrl = props.getProperty("jdbc.url");
-      String user = props.getProperty("jdbc.user");
-      String password = props.getProperty("jdbc.password");
+      jdbcUrl = props.getProperty("jdbc.url");
+      user = props.getProperty("jdbc.user");
+      password = props.getProperty("jdbc.password");
       System.out.println("[DEBUG] Loaded JDBC URL: " + jdbcUrl);
       System.out.println("[DEBUG] Loaded DB user: " + user);
       Connection conn = DriverManager.getConnection(jdbcUrl, user, password);

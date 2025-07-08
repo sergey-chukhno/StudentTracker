@@ -20,7 +20,15 @@ public class StudentTrackerServer {
   public static void main(String[] args) throws IOException {
     // Ensure DB connection and table creation on startup
     DatabaseManager.getConnection();
-    int port = 8080;
+    int port = 8080; // default for local dev
+    String portEnv = System.getenv("PORT");
+    if (portEnv != null) {
+        try {
+            port = Integer.parseInt(portEnv);
+        } catch (NumberFormatException e) {
+            System.err.println("Invalid PORT env variable, using default: " + port);
+        }
+    }
     HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
     server.createContext("/students", exchange -> {
       String method = exchange.getRequestMethod();
