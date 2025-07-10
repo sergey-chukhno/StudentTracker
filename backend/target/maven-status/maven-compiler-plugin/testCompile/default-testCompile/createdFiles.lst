@@ -1,4 +1,4 @@
-com/laplateforme/tracker/dao/StudentDAOTest.class
-com/laplateforme/tracker/util/DatabaseManagerTest.class
-com/laplateforme/tracker/service/UserServiceTest.class
-com/laplateforme/tracker/dao/UserDAOTest.class
+com\laplateforme\tracker\dao\StudentDAOTest.class
+com\laplateforme\tracker\util\DatabaseManagerTest.class
+com\laplateforme\tracker\service\UserServiceTest.class
+com\laplateforme\tracker\dao\UserDAOTest.class
