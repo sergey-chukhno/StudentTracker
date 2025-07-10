@@ -24,4 +24,14 @@
       </plugins>
     </pluginManagement>
   </build>
-</project> 
+  <dependencies>
+    <!-- existing dependencies -->
+
+    <dependency>
+      <groupId>org.testfx</groupId>
+      <artifactId>testfx-junit5</artifactId>
+      <version>4.0.16-alpha</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+</project>
